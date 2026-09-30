@@ -1,0 +1,95 @@
+.releases { display: grid; gap: clamp(70px, 12vw, 170px); }
+.release { display: grid; grid-template-columns: minmax(220px, .8fr) minmax(0, 1.2fr); align-items: center; gap: clamp(30px, 8vw, 120px); }
+.artwork { width: 100%; height: auto; object-fit: cover; }
+.releaseInfo { max-width: 620px; }
+.meta, .event time, .event small, .video time { color: var(--color-ash); font: 9px/1.6 var(--font-ui); letter-spacing: .16em; }
+.releaseInfo h2 { margin: 18px 0; font: 400 clamp(32px, 5vw, 66px)/1.05 var(--font-display); }
+.releaseInfo > p { color: var(--color-ash); font-size: 13px; line-height: 1.9; }
+.releaseInfo ol { margin: 32px 0; padding: 0; list-style-position: inside; color: var(--color-ash); font-size: 13px; line-height: 2.3; }
+.streamingLink, .detailLink { display: block; border-bottom: 1px solid var(--color-line); padding: 15px 0; font: 9px/1.5 var(--font-ui); letter-spacing: .17em; }
+.detailLink { display: flex; justify-content: space-between; margin-top: 15px; }
+.eventGroup + .eventGroup { margin-top: 90px; }
+.eventGroup h2 { margin: 0 0 28px; color: var(--color-ash); font: 9px/1 var(--font-ui); letter-spacing: .2em; }
+.liveFeature { display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1fr); align-items: start; gap: clamp(32px, 7vw, 104px); }
+.eventPoster { display: block; width: 100%; height: auto; object-fit: contain; }
+.liveDetails { align-self: center; padding: clamp(14px, 3vw, 42px) 0; }
+.liveEyebrow { margin: 0 0 14px; color: var(--color-ash); font: 9px/1.5 var(--font-ui); letter-spacing: .2em; }
+.liveTitle { max-width: 690px; margin: 0 0 26px; font: 400 clamp(28px, 4vw, 58px)/1.12 var(--font-display); letter-spacing: .015em; text-transform: none; }
+.liveDescription { margin: 0; color: var(--color-bone); font: 400 clamp(16px, 1.7vw, 22px)/1.85 var(--font-display); letter-spacing: .025em; white-space: pre-line; text-transform: none; }
+.liveMeta { display: grid; gap: 18px; margin: 36px 0 0; padding: 24px 0 0; border-top: 1px solid var(--color-line); }
+.liveMeta > div { display: grid; grid-template-columns: minmax(100px, .55fr) 1fr; gap: 16px; }
+.liveMeta dt { color: var(--color-ash); font: 8px/1.7 var(--font-ui); letter-spacing: .16em; }
+.liveMeta dd { margin: 0; font-size: 12px; line-height: 1.8; letter-spacing: .035em; }
+.event { display: grid; grid-template-columns: minmax(100px, .45fr) 1fr; align-items: start; gap: 24px; border-top: 1px solid var(--color-line); padding: 24px 0; }
+.event:last-child { border-bottom: 1px solid var(--color-line); }
+.event time { align-self: start; padding-top: 4px; }
+.event strong { font: 400 clamp(20px, 2.5vw, 30px)/1.3 var(--font-display); letter-spacing: .04em; }
+.event p { margin: 7px 0; color: var(--color-ash); font-size: 12px; }
+.event small { display: block; }
+.ticketBlock { display: grid; justify-items: start; gap: 10px; margin-top: 22px; }
+.ticketBlock p { margin: 0; color: var(--color-ash); font-size: 12px; line-height: 1.8; }
+.ticketBlock a { display: inline-flex; min-height: 48px; align-items: center; justify-content: space-between; gap: 34px; border: 1px solid var(--color-line); padding: 0 18px; font: 9px/1.4 var(--font-ui); letter-spacing: .15em; transition: border-color .2s ease, background-color .2s ease, color .2s ease; }
+.ticketBlock a:hover { border-color: var(--color-bone); background: rgb(241 237 232 / 5%); }
+.ticketBlock a:focus-visible { outline: 2px solid var(--color-bone); outline-offset: 4px; }
+.ticketBlock a > span[aria-hidden="true"] { transition: transform .2s ease; }
+.ticketBlock a:hover > span[aria-hidden="true"] { transform: translate(2px, -2px); }
+.archiveGroup .event { align-items: center; }
+.videos { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; gap: clamp(36px, 6vw, 88px) 3%; }
+.video { grid-column: span 5; width: 100%; min-width: 0; }
+.videoPrimary { grid-column: span 7; grid-row: span 2; }
+.video:nth-child(2) { grid-column: 8 / -1; margin-top: clamp(24px, 7vw, 100px); }
+.video:nth-child(3) { grid-column: 8 / -1; width: 88%; margin-left: auto; }
+.video:nth-child(n + 4) { grid-column: span 6; }
+.video > a { position: relative; display: block; overflow: hidden; background: var(--color-deep-black); }
+.video img { display: block; width: 100%; height: auto; transition: transform .7s var(--ease-editorial); }
+.video > a:hover img { transform: scale(1.012); }
+.video > a > span { position: absolute; right: 20px; bottom: 20px; display: grid; width: 44px; height: 44px; place-items: center; border: 1px solid rgb(241 237 232 / 60%); border-radius: 50%; }
+.video > div { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; border-bottom: 1px solid var(--color-line); padding: 17px 0; }
+.videoIndex { color: var(--color-ash); font: 8px/1.5 var(--font-ui); letter-spacing: .18em; }
+.video h2 { margin: 0; font: 400 clamp(20px, 3vw, 34px)/1.25 var(--font-display); }
+.news a { position: relative; display: grid; grid-template-columns: minmax(110px, .4fr) minmax(70px, .3fr) 1fr 20px; align-items: center; gap: 20px; min-height: 78px; border-top: 1px solid var(--color-line); }
+.news a::after { position: absolute; right: 0; bottom: 0; left: 0; height: 1px; background: var(--color-ash); content: ""; transform: scaleX(0); transform-origin: left; transition: transform .55s cubic-bezier(.16, 1, .3, 1); }
+.news a:hover::after { transform: scaleX(1); }
+.news a:last-child { border-bottom: 1px solid var(--color-line); }
+.news time, .news span { color: var(--color-ash); font: 9px/1.5 var(--font-ui); letter-spacing: .12em; }
+.news strong { font-size: 13px; font-weight: 400; line-height: 1.7; }
+.news i { font-style: normal; }
+.news a.newsNoDate { grid-template-columns: minmax(70px, .3fr) minmax(0, 1fr) 20px; }
+.newsArticle { width: min(100% - 2 * var(--page-gutter), 1240px); margin: clamp(150px, 20vw, 250px) auto var(--space-section); }
+.newsArticleHeader { display: flex; gap: 18px; margin-bottom: 20px; color: var(--color-ash); font: 9px/1.5 var(--font-ui); letter-spacing: .17em; }
+.newsArticle h1 { max-width: 950px; margin: 0 0 clamp(34px, 6vw, 78px); font: 400 clamp(40px, 7vw, 92px)/1.06 var(--font-display); letter-spacing: .02em; text-transform: none; }
+.newsArticleContent { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1fr); align-items: start; gap: clamp(34px, 8vw, 112px); }
+.newsArticleImage { display: block; width: 100%; max-width: 620px; height: auto; }
+.newsArticleBody { max-width: 650px; margin: 0; color: var(--color-bone); font-size: 14px; line-height: 2.1; letter-spacing: .025em; white-space: pre-line; }
+@media (max-width: 700px) {
+  .release { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .artwork { width: min(100%, 420px); }
+  .liveFeature { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .eventPoster { width: min(100%, 520px); margin-inline: auto; }
+  .liveDetails { padding: 0; }
+  .liveTitle { font-size: clamp(27px, 7vw, 40px); margin-bottom: 18px; }
+  .liveDescription { font-size: 17px; }
+  .liveMeta { gap: 14px; margin-top: 26px; padding-top: 20px; }
+  .liveMeta > div { grid-template-columns: 100px minmax(0, 1fr); gap: 10px; }
+  .event { grid-template-columns: 86px minmax(0, 1fr); gap: 12px; }
+  .ticketBlock { margin-top: 18px; }
+  .ticketBlock a { min-height: 52px; }
+  .event time { font-size: 8px; }
+  .video > div { display: block; }
+  .video h2 { margin-top: 8px; }
+  .videos { grid-template-columns: minmax(0, 1fr); gap: 42px; }
+  .video, .videoPrimary, .video:nth-child(2), .video:nth-child(3), .video:nth-child(n + 4) { grid-column: 1 / -1; grid-row: auto; width: 100%; margin: 0; }
+  .video:nth-child(2) { width: 90%; margin-left: auto; }
+  .videoIndex { display: inline-block; margin-right: 14px; }
+  .newsArticle { margin-top: 118px; }
+  .newsArticle h1 { font-size: clamp(36px, 10vw, 56px); }
+  .newsArticleContent { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+  .newsArticleImage { width: min(100%, 520px); }
+  .newsArticleBody { font-size: 14px; }
+  .news a { grid-template-columns: 80px 55px minmax(0, 1fr) 14px; gap: 8px; }
+  .news a.newsNoDate { grid-template-columns: 55px minmax(0, 1fr) 14px; }
+  .news time, .news span { font-size: 7px; }
+  .news strong { font-size: 11px; }
+}
+@media (max-width: 360px) { .news a { grid-template-columns: 72px 44px minmax(0, 1fr) 12px; gap: 5px; } .news a.newsNoDate { grid-template-columns: 44px minmax(0, 1fr) 12px; } .news time, .news span { font-size: 6px; } }
+@media (prefers-reduced-motion: reduce) { .video img { transition: none; } }

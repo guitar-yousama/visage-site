@@ -1,0 +1,88 @@
+.atmosphere {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: #05060a;
+  background-image: url("/assets/images/background/visage_atmosphere.webp?v=2");
+  background-position: 62% center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  pointer-events: none;
+  transform-origin: center;
+  animation: atmosphereScale 28s ease-in-out infinite alternate;
+}
+
+.atmosphere::before,
+.atmosphere::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.atmosphere::before {
+  z-index: 1;
+  background: linear-gradient(180deg, rgb(2 3 8 / 38%) 0%, rgb(3 4 10 / 17%) 36%, rgb(3 4 9 / 18%) 64%, rgb(2 3 7 / 46%) 100%),
+    linear-gradient(90deg, rgb(3 4 9 / 19%), transparent 46%, rgb(3 4 9 / 12%));
+}
+
+.atmosphere::after {
+  z-index: 2;
+  background: radial-gradient(ellipse 34% 30% at 76% 69%, rgb(105 119 163 / 14%), transparent 100%),
+    radial-gradient(ellipse 62% 44% at 54% 73%, rgb(47 58 91 / 8%), transparent 100%);
+  opacity: .24;
+  animation: atmosphericBreath 24s ease-in-out infinite alternate;
+}
+
+.mist {
+  position: absolute;
+  z-index: 3;
+  right: -12%;
+  bottom: -7vh;
+  left: -12%;
+  height: 37vh;
+  min-height: 210px;
+  background: radial-gradient(ellipse 72% 54% at 34% 60%, rgb(111 127 160 / 12%), transparent 100%),
+    radial-gradient(ellipse 74% 48% at 76% 48%, rgb(91 108 145 / 10%), transparent 100%),
+    linear-gradient(180deg, transparent 0%, rgb(57 71 105 / 4%) 31%, rgb(76 91 125 / 11%) 58%, rgb(44 56 84 / 9%) 78%, transparent 100%);
+  opacity: .65;
+  filter: blur(18px);
+  animation: mistDrift 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes atmosphericBreath {
+  from { opacity: .22; filter: brightness(.97); }
+  to { opacity: .28; filter: brightness(1.03); }
+}
+
+@keyframes mistDrift {
+  from { transform: translate3d(-3%, 0, 0); }
+  to { transform: translate3d(3%, 0, 0); }
+}
+
+@keyframes atmosphereScale {
+  from { transform: scale(1); }
+  to { transform: scale(1.012); }
+}
+
+@media (max-width: 900px) {
+  .atmosphere { background-position: 84% center; }
+  .atmosphere::before { background: linear-gradient(180deg, rgb(2 3 8 / 46%) 0%, rgb(3 4 10 / 22%) 38%, rgb(3 4 9 / 26%) 68%, rgb(2 3 7 / 53%) 100%); }
+  .atmosphere::after { background: radial-gradient(ellipse 43% 28% at 70% 69%, rgb(105 119 163 / 13%), transparent 100%), radial-gradient(ellipse 72% 46% at 54% 73%, rgb(47 58 91 / 8%), transparent 100%); }
+  .mist { height: 30vh; min-height: 160px; filter: blur(14px); }
+}
+
+@media (max-width: 600px) {
+  .atmosphere { background-position: 90% center; }
+  .atmosphere::after { background: radial-gradient(ellipse 58% 26% at 50% 69%, rgb(105 119 163 / 13%), transparent 100%), radial-gradient(ellipse 88% 44% at 50% 74%, rgb(47 58 91 / 8%), transparent 100%); }
+  .atmosphere { animation-duration: 30s; }
+  .atmosphere::after { animation-duration: 28s; }
+  .mist { right: -20%; bottom: -4vh; left: -20%; height: 27vh; min-height: 140px; opacity: .55; filter: blur(12px); animation-duration: 28s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere, .atmosphere::after, .mist { animation: none; transform: none; }
+}

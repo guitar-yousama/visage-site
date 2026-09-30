@@ -1,0 +1,17 @@
+:root {
+  color-scheme: dark;
+  --color-black: #050505;
+  --color-deep-black: #0b0808;
+  --color-bone: #f1ede8;
+  --color-ash: #918b88;
+  --color-violet: #30264a;
+  --color-burgundy: #64262b;
+  --color-line: rgb(241 237 232 / 18%);
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-body: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+  --font-ui: Inter, Arial, sans-serif;
+  --content-width: 1440px;
+  --page-gutter: clamp(20px, 5vw, 96px);
+  --space-section: clamp(100px, 14vw, 220px);
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+}

@@ -1,0 +1,11 @@
+.footer { position: relative; z-index: 1; padding: 78px var(--page-gutter) 28px; background: transparent; }
+.top { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding-bottom: 58px; }
+.mark { font: 500 clamp(32px, 5vw, 64px)/1 var(--font-display); letter-spacing: .25em; }
+.top p { margin: 0; color: var(--color-bone); font: italic 19px/1.4 var(--font-display); }
+.top span, .bottom { color: var(--color-ash); font: 9px/1.5 var(--font-ui); letter-spacing: .16em; }
+.bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-line); padding-top: 20px; }
+.bottom nav { display: flex; flex-wrap: wrap; gap: clamp(18px, 3vw, 42px); }
+.bottom a { transition: color .2s ease; }
+.bottom a:hover { color: var(--color-bone); }
+.bottom small { font: inherit; }
+@media (max-width: 640px) { .footer { padding-top: 58px; } .top { display: grid; grid-template-columns: 1fr; gap: 16px; padding-bottom: 40px; } .top p { font-size: 16px; } .bottom { align-items: flex-start; flex-direction: column; gap: 26px; } }

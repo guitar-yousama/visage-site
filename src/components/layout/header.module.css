@@ -1,0 +1,21 @@
+.header { position: fixed; z-index: 20; inset: 0 0 auto; display: flex; align-items: center; justify-content: space-between; height: 88px; padding-inline: var(--page-gutter); transition: background .35s ease, backdrop-filter .35s ease, height .35s ease; }
+.scrolled { height: 72px; background: rgb(5 5 5 / 86%); backdrop-filter: blur(14px); }
+.wordmark { position: relative; z-index: 22; font: 500 19px/1 var(--font-display); letter-spacing: .28em; }
+.desktopNav { display: flex; align-items: center; gap: clamp(16px, 2.2vw, 34px); margin-left: auto; font: 500 10px/1 var(--font-ui); letter-spacing: .16em; }
+.desktopNav a, .mobileSocials a { transition: opacity .2s ease; }
+.desktopNav a:hover, .mobileSocials a:hover { opacity: .55; }
+.menuButton { position: relative; z-index: 22; display: none; align-items: center; gap: 11px; border: 0; padding: 12px 0 12px 20px; background: none; font: 500 10px/1 var(--font-ui); letter-spacing: .16em; cursor: pointer; }
+.menuButton i, .menuButton i::after { display: block; width: 18px; height: 1px; background: var(--color-bone); transition: transform .25s ease; }
+.menuButton i { position: relative; }
+.menuButton i::after { position: absolute; top: 5px; content: ""; }
+.open .menuButton i { transform: rotate(45deg); }
+.open .menuButton i::after { top: 0; transform: rotate(90deg); }
+.mobileNav { position: fixed; z-index: 21; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 100px var(--page-gutter) 40px; background: var(--color-deep-black); opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility .3s ease; }
+.open .mobileNav { opacity: 1; visibility: visible; }
+.mobileLinks { display: flex; flex-direction: column; align-items: flex-start; gap: clamp(4px, 1.5vh, 16px); }
+.mobileLinks a { display: flex; align-items: baseline; gap: 20px; font: 400 clamp(42px, 10vw, 72px)/1.1 var(--font-display); letter-spacing: .06em; }
+.mobileLinks small { width: 20px; color: var(--color-ash); font: 9px/1 var(--font-ui); letter-spacing: .1em; }
+.mobileSocials { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 48px; font: 10px/1 var(--font-ui); letter-spacing: .12em; }
+.mobileNav > p { margin: 35px 0 0; color: var(--color-ash); font: 9px/1 var(--font-ui); letter-spacing: .2em; }
+@media (max-width: 900px) { .header { height: 70px; } .desktopNav { display: none; } .menuButton { display: flex; } }
+@media (prefers-reduced-motion: reduce) { .header, .desktopNav a, .mobileSocials a, .menuButton i, .menuButton i::after, .mobileNav { transition: none; } }
