@@ -1,5 +1,7 @@
 # Visage_web
 
+Visage official
+
 熊本発ヴィジュアル系バンド「Visage」の公式Webサイト。
 コンセプトは **Beautiful Decay**。実際の写真、ロゴ、公式情報を優先し、未確定のコンテンツは掲載しません。
 
