@@ -4,11 +4,12 @@ import { NovelIntro } from "./NovelIntro";
 import Link from "next/link";
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import { liveEvents, members, newsItems, profileCopy, releases, siteAssets, socialLinks, videos } from "@/lib/site-data";
+import { liveEvents, newsItems, profileCopy, releases, siteAssets, socialLinks, videos } from "@/lib/site-data";
 import { EditorialLink, EmptyState, SectionHeading } from "@/components/ui/Editorial";
 import { LiveFeature, VideoList } from "@/components/sections/ContentLists";
 import { HeroMotion } from "./HeroMotion";
 import { SadieSection } from "./SadieSection";
+import { MemberPortraits } from "./MemberPortraits";
 import styles from "./home-sections.module.css";
 
 export function Hero() {
@@ -78,10 +79,7 @@ export function HomeSections() {
 
       <section className={styles.section}>
         <SectionHeading index="06" title="MEMBER" note="FIVE VOICES / ONE VISAGE" />
-        <div className={styles.memberEditorial}>{members.map((member, index) => <Link key={member.name} href="/member" className={styles.memberFeature} data-reveal style={{ "--reveal-delay": `${(index % 3) * 100}ms` } as CSSProperties}>
-          {member.portrait && <Image className={styles.memberFeaturePhoto} src={member.portrait} alt={`${member.name} — ${member.role}`} width={member.portraitWidth ?? 800} height={member.portraitHeight ?? 1000} sizes={index === 0 ? "(max-width: 700px) 90vw, 55vw" : "(max-width: 700px) 42vw, 45vw"} data-reveal="photo" />}
-          <span className={styles.memberFeatureIndex}>0{index + 1}</span><span className={styles.memberFeatureInfo}><strong>{member.name}</strong><small>{member.role}</small></span><i aria-hidden="true">↗</i>
-        </Link>)}</div>
+        <MemberPortraits linked />
         <div className={styles.endLink}><EditorialLink href="/member">MEET THE MEMBERS</EditorialLink></div>
       </section>
 
