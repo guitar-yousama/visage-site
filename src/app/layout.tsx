@@ -7,6 +7,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://visage-site.vercel.app"),
+  verification: { google: "JWMwVpG_vKqMVTxAcw61xACIN1V5_4ljvB0zD_hk2dA" },
   title: { default: "Visage Official Website | 熊本・九州のヴィジュアル系ロックバンド", template: "%s | Visage" },
   description: "熊本・九州を拠点に活動するヴィジュアル系ロックバンド「Visage」公式サイト。楽曲、ライブ情報、メンバー、映像、NEWSなど最新情報を発信。美しく退廃的で、どこか危険な世界観と鋭く重いロックサウンドを展開する。",
   openGraph: {
