@@ -55,5 +55,5 @@ export function VideoList({ videos }: { videos: Video[] }) {
 
 export function NewsList({ items }: { items: NewsItem[] }) {
   if (!items.length) return <EmptyState>新しいお知らせはありません。</EmptyState>;
-  return <div className={styles.news}>{items.map((item, index) => <Link className={item.date ? "" : styles.newsNoDate} href={`/news/${item.slug}`} key={item.slug} data-reveal style={{ "--reveal-delay": `${(index % 3) * 100}ms` } as React.CSSProperties}>{item.date && <time>{item.date}</time>}<span>{item.category}</span><strong>{item.title}</strong><i aria-hidden="true">↗</i></Link>)}</div>;
+  return <div className={styles.news}>{items.map((item, index) => <div key={item.slug} data-reveal style={{ "--reveal-delay": `${(index % 3) * 100}ms` } as React.CSSProperties}><Link className={`${styles.newsRow} ${item.date ? "" : styles.newsNoDate}`} href={`/news/${item.slug}`}>{item.date && <time dateTime={item.date.replaceAll(".", "-")}>{item.date}</time>}<span>{item.category}</span><strong>{item.title}</strong><i aria-hidden="true">↗</i></Link>{item.externalUrl && <a className={styles.externalNewsLink} href={item.externalUrl} target="_blank" rel="noopener noreferrer">READ INTERVIEW <span aria-hidden="true">↗</span><span className="sr-only">（新しいタブで開く）</span></a>}</div>)}</div>;
 }

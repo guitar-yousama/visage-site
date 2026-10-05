@@ -1,3 +1,6 @@
+/* One fixed stacking context behind main/footer (1) and the header (20).
+   Scene (0) → dark grading (1) → distant mist (2) → near mist (3) → light (4) → lightning (5).
+   The clipping belongs to this viewport only; no foreground effect intercepts input. */
 .atmosphere {
   position: fixed;
   z-index: 0;
@@ -10,79 +13,85 @@
   background-repeat: no-repeat;
   background-size: cover;
   pointer-events: none;
-  transform-origin: center;
-  animation: atmosphereScale 28s ease-in-out infinite alternate;
-}
-
-.atmosphere::before,
-.atmosphere::after {
-  position: absolute;
-  inset: 0;
-  content: "";
-  pointer-events: none;
 }
 
 .atmosphere::before {
+  position: absolute;
   z-index: 1;
+  inset: 0;
+  content: "";
   background: linear-gradient(180deg, rgb(2 3 8 / 38%) 0%, rgb(3 4 10 / 17%) 36%, rgb(3 4 9 / 18%) 64%, rgb(2 3 7 / 46%) 100%),
     linear-gradient(90deg, rgb(3 4 9 / 19%), transparent 46%, rgb(3 4 9 / 12%));
 }
 
-.atmosphere::after {
-  z-index: 2;
-  background: radial-gradient(ellipse 34% 30% at 76% 69%, rgb(105 119 163 / 14%), transparent 100%),
-    radial-gradient(ellipse 62% 44% at 54% 73%, rgb(47 58 91 / 8%), transparent 100%);
-  opacity: .24;
-  animation: atmosphericBreath 24s ease-in-out infinite alternate;
-}
-
-.mist {
+.mistFar, .mistNear, .moonlight {
   position: absolute;
+  inset: -8% -15%;
+  pointer-events: none;
+}
+
+.mistFar {
+  z-index: 2;
+  background: radial-gradient(ellipse 43% 20% at 32% 25%, rgb(91 108 145 / 27%), transparent 100%),
+    radial-gradient(ellipse 48% 23% at 72% 72%, rgb(76 91 125 / 21%), transparent 100%);
+  animation: distantMist 42s ease-in-out -18s infinite alternate;
+}
+
+.mistNear {
   z-index: 3;
-  right: -12%;
-  bottom: -7vh;
-  left: -12%;
-  height: 37vh;
-  min-height: 210px;
-  background: radial-gradient(ellipse 72% 54% at 34% 60%, rgb(111 127 160 / 12%), transparent 100%),
-    radial-gradient(ellipse 74% 48% at 76% 48%, rgb(91 108 145 / 10%), transparent 100%),
-    linear-gradient(180deg, transparent 0%, rgb(57 71 105 / 4%) 31%, rgb(76 91 125 / 11%) 58%, rgb(44 56 84 / 9%) 78%, transparent 100%);
-  opacity: .65;
-  filter: blur(18px);
-  animation: mistDrift 26s ease-in-out infinite alternate;
-  will-change: transform;
+  background: radial-gradient(ellipse 38% 15% at 26% 62%, rgb(111 127 160 / 33%), transparent 100%),
+    radial-gradient(ellipse 42% 18% at 77% 37%, rgb(91 108 145 / 27%), transparent 100%),
+    radial-gradient(ellipse 55% 13% at 55% 88%, rgb(76 91 125 / 17%), transparent 100%);
+  animation: nearMist 22s ease-in-out -8s infinite alternate;
 }
 
-@keyframes atmosphericBreath {
-  from { opacity: .22; filter: brightness(.97); }
-  to { opacity: .28; filter: brightness(1.03); }
+.moonlight {
+  z-index: 4;
+  background: radial-gradient(ellipse 22% 46% at 55% 36%, rgb(127 148 189 / 31%), transparent 100%);
+  animation: moonlightPass 32s ease-in-out -12s infinite alternate;
 }
 
-@keyframes mistDrift {
-  from { transform: translate3d(-3%, 0, 0); }
-  to { transform: translate3d(3%, 0, 0); }
+/* Negative delays start in mid-drift, avoiding an apparently static opening. */
+@keyframes distantMist {
+  from { transform: translate3d(11vw, -2vh, 0); opacity: .38; }
+  to { transform: translate3d(-11vw, 4vh, 0); opacity: .84; }
+}
+@keyframes nearMist {
+  from { transform: translate3d(-13vw, 2vh, 0); opacity: .55; }
+  to { transform: translate3d(13vw, -4vh, 0); opacity: 1; }
+}
+@keyframes moonlightPass {
+  from { transform: translate3d(-16vw, -3vh, 0); opacity: .26; }
+  to { transform: translate3d(16vw, 3vh, 0); opacity: .85; }
 }
 
-@keyframes atmosphereScale {
-  from { transform: scale(1); }
-  to { transform: scale(1.012); }
-}
+html[data-motion-paused="true"] .mistFar,
+html[data-motion-paused="true"] .mistNear,
+html[data-motion-paused="true"] .moonlight { animation-play-state: paused; }
 
 @media (max-width: 900px) {
   .atmosphere { background-position: 84% center; }
   .atmosphere::before { background: linear-gradient(180deg, rgb(2 3 8 / 46%) 0%, rgb(3 4 10 / 22%) 38%, rgb(3 4 9 / 26%) 68%, rgb(2 3 7 / 53%) 100%); }
-  .atmosphere::after { background: radial-gradient(ellipse 43% 28% at 70% 69%, rgb(105 119 163 / 13%), transparent 100%), radial-gradient(ellipse 72% 46% at 54% 73%, rgb(47 58 91 / 8%), transparent 100%); }
-  .mist { height: 30vh; min-height: 160px; filter: blur(14px); }
 }
-
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .atmosphere { background-position: 90% center; }
-  .atmosphere::after { background: radial-gradient(ellipse 58% 26% at 50% 69%, rgb(105 119 163 / 13%), transparent 100%), radial-gradient(ellipse 88% 44% at 50% 74%, rgb(47 58 91 / 8%), transparent 100%); }
-  .atmosphere { animation-duration: 30s; }
-  .atmosphere::after { animation-duration: 28s; }
-  .mist { right: -20%; bottom: -4vh; left: -20%; height: 27vh; min-height: 140px; opacity: .55; filter: blur(12px); animation-duration: 28s; }
+  /* Keep all three lightweight layers moving; simplify their gradient textures. */
+  .mistFar { background: radial-gradient(ellipse 62% 22% at 38% 28%, rgb(91 108 145 / 21%), transparent 100%); animation-duration: 44s; }
+  .mistNear { background: radial-gradient(ellipse 38% 17% at 38% 65%, rgb(111 127 160 / 33%), transparent 100%), radial-gradient(ellipse 40% 16% at 68% 35%, rgb(91 108 145 / 26%), transparent 100%); animation-duration: 26s; }
+  .moonlight { background: radial-gradient(ellipse 35% 45% at 55% 40%, rgb(127 148 189 / 26%), transparent 100%); animation-duration: 36s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mistFar, .mistNear, .moonlight { animation: none; transform: none; }
+  .mistFar { opacity: .42; }
+  .mistNear { opacity: .58; }
+  .moonlight { opacity: .3; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .atmosphere, .atmosphere::after, .mist { animation: none; transform: none; }
-}
+/* Only this background group flashes: the blue ambient wash, mist and light
+   share one opacity envelope, without filters or any foreground overlay. */
+.lightning { position: absolute; z-index: 5; inset: 0; opacity: 0; pointer-events: none; background: linear-gradient(rgb(70 92 142 / 13%), rgb(76 98 148 / 7%)); }
+.lightning::before, .lightning::after { position: absolute; inset: 0; content: ""; pointer-events: none; }
+.lightning::before { background: radial-gradient(ellipse 42% 18% at 30% 62%, rgb(143 164 201 / 28%), transparent 100%), radial-gradient(ellipse 48% 20% at 75% 35%, rgb(127 148 189 / 23%), transparent 100%); }
+.lightning::after { background: radial-gradient(ellipse 36% 65% at var(--strike-x, 55%) 32%, rgb(148 178 220 / 30%), transparent 100%); }
+@media (max-width: 700px) { .lightning::before { background: radial-gradient(ellipse 64% 24% at 50% 60%, rgb(143 164 201 / 23%), transparent 100%); } }
+@media (prefers-reduced-motion: reduce) { .lightning { display: none; } }

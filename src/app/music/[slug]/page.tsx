@@ -7,7 +7,7 @@ export function generateStaticParams() { return releases.map(({ slug }) => ({ sl
 export async function generateMetadata({ params }: PageProps<"/music/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const release = releases.find((item) => item.slug === slug);
-  return release ? { title: release.title, description: release.description } : {};
+  return release ? { title: release.title, description: release.description, alternates: { canonical: `https://visage-site.vercel.app/music/${release.slug}` } } : {};
 }
 
 export default async function ReleasePage({ params }: PageProps<"/music/[slug]">) {

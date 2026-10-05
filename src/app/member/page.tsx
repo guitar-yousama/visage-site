@@ -4,7 +4,7 @@ import { SectionPage } from "@/components/sections/SectionPage";
 import { members } from "@/lib/site-data";
 import styles from "@/components/sections/section-page.module.css";
 
-export const metadata: Metadata = { title: "Member" };
+export const metadata: Metadata = { title: "Member", alternates: { canonical: "https://visage-site.vercel.app/member" } };
 
 export default function MemberPage() {
   return <SectionPage index="06" title="MEMBER" description="FIVE VOICES / ONE VISAGE">

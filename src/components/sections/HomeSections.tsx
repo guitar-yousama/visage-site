@@ -1,23 +1,29 @@
+import { GalleryCarousel } from "./GalleryCarousel";
+import { galleryPhotos } from "@/lib/gallery-data";
+import { NovelIntro } from "./NovelIntro";
 import Link from "next/link";
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import { liveEvents, members, newsItems, profileCopy, releases, siteAssets, socialLinks, videos } from "@/lib/site-data";
 import { EditorialLink, EmptyState, SectionHeading } from "@/components/ui/Editorial";
 import { LiveFeature, VideoList } from "@/components/sections/ContentLists";
+import { HeroMotion } from "./HeroMotion";
+import { SadieSection } from "./SadieSection";
 import styles from "./home-sections.module.css";
 
 export function Hero() {
   return (
-    <section className={`${styles.hero} ${siteAssets.heroPhoto ? styles.heroWithPhoto : ""}`} aria-labelledby="hero-title">
-      {siteAssets.heroPhoto && <Image className={styles.heroPhoto} src={siteAssets.heroPhoto.src} alt="" fill fetchPriority="high" sizes="100vw" style={{ "--hero-position-desktop": siteAssets.heroPhoto.desktopPosition, "--hero-position-mobile": siteAssets.heroPhoto.mobilePosition } as CSSProperties} />}
+    <HeroMotion className={styles.hero}>
+
       <div className={styles.heroMeta}><span>ARTIST / VISAGE</span><span>VISUAL KEI / HEAVY ROCK</span></div>
       <div className={styles.heroCore}>
-        <h1 id="hero-title">{siteAssets.logo ? <Image className={styles.heroLogo} src={siteAssets.logo.src} alt="Visage" width={siteAssets.logo.width} height={siteAssets.logo.height} loading="eager" sizes="(max-width: 767px) 78vw, min(42vw, 650px)" /> : "VISAGE"}</h1>
+        <h1 id="hero-title">{siteAssets.logo ? <Image className={styles.heroLogo} src={siteAssets.logo.src} alt="Visage" width={siteAssets.logo.width} height={siteAssets.logo.height} loading="eager" sizes="(max-width: 365px) 190px, (max-width: 423px) 52vw, (max-width: 700px) 220px, (max-width: 1547px) 42vw, 650px" /> : "VISAGE"}<span className={styles.heroLogoReflection} aria-hidden="true"><i /></span></h1>
         <div className={styles.heroFoot}><p>We Rise from Beautiful Decay</p><span>KUMAMOTO / JAPAN</span></div>
       </div>
+      {siteAssets.heroPhoto && <div className={styles.heroPhotoFrame} data-ambient-light><div className={styles.heroPhotoMotion} data-hero-photo-motion><Image className={styles.heroPhoto} src={siteAssets.heroPhoto.src} alt="熊本・九州を拠点に活動するヴィジュアル系ロックバンド Visage" width={siteAssets.heroPhoto.width} height={siteAssets.heroPhoto.height} fetchPriority="high" loading="eager" sizes="100vw" /></div><span className={styles.heroScrollShade} aria-hidden="true" /><span className={styles.heroLightning} data-hero-lightning aria-hidden="true" /></div>}
       <a className={styles.scrollCue} href="#latest"><span>SCROLL</span><i aria-hidden="true" /></a>
       <span className={styles.heroIndex} aria-hidden="true">01 — 08</span>
-    </section>
+    </HeroMotion>
   );
 }
 
@@ -52,6 +58,11 @@ export function HomeSections() {
         {releases.length > 0 && <p className={styles.releaseCount}>{releases.length} RELEASE{releases.length === 1 ? "" : "S"}</p>}
       </section>
 
+      <section className={styles.section} id="gallery">
+        <SectionHeading index="—" title="GALLERY" note="LIVE / VISAGE" />
+        <div data-reveal><GalleryCarousel photos={galleryPhotos} /></div>
+      </section>
+
       <section className={styles.section}>
         <SectionHeading index="04" title="VIDEO" note="IMAGE / SOUND / MOTION" />
         {videos.length ? <VideoList videos={videos} /> : <EmptyState>Official video information will be announced here.</EmptyState>}
@@ -61,9 +72,7 @@ export function HomeSections() {
       <section className={styles.profileSection}>
         <div className={styles.profileLabel}><span>05 / PROFILE</span><span>VISUAL KEI / KUMAMOTO</span></div>
         <h2 className={styles.profileHeading} data-reveal>{profileCopy.heading}</h2>
-        <div className={styles.profileManifesto}>
-          {profileCopy.paragraphs.map((paragraph, index) => <p key={paragraph} className={index === 1 || index === 2 ? styles.profileEmphasis : index === 4 ? styles.profileClosing : undefined} data-reveal style={{ "--reveal-delay": `${Math.min(index, 3) * 110}ms` } as CSSProperties}>{paragraph}</p>)}
-        </div>
+        <NovelIntro paragraphs={profileCopy.paragraphs} className={styles.profileManifesto} emphasisClass={styles.profileEmphasis} closingClass={styles.profileClosing} />
         <div data-reveal style={{ "--reveal-delay": "120ms" } as CSSProperties}><EditorialLink href="/profile">ABOUT VISAGE</EditorialLink></div>
       </section>
 
@@ -78,8 +87,10 @@ export function HomeSections() {
 
       <section className={`${styles.section} ${styles.socialSection}`}>
         <SectionHeading index="07" title="FOLLOW" note="FOUR WINDOWS INTO VISAGE" />
-        <div className={styles.socialList}>{socialLinks.map((link, index) => <a href={link.href} key={link.platform} target="_blank" rel="noreferrer" data-reveal style={{ "--reveal-delay": `${(index % 2) * 110}ms` } as CSSProperties}><small>{link.role}</small><strong>{link.platform}</strong><span>{link.handle}</span><i aria-hidden="true">↗</i></a>)}</div>
+        <div className={styles.socialList}>{socialLinks.map((link, index) => <a href={link.href} key={link.platform} target="_blank" rel="noreferrer" title={`Visage Official ${link.platform}`} aria-label={`Visage Official ${link.platform}: ${link.handle}`} data-reveal style={{ "--reveal-delay": `${(index % 2) * 110}ms` } as CSSProperties}><small>{link.role}</small><strong>{link.platform}</strong><span>{link.handle}</span><i aria-hidden="true">↗</i></a>)}</div>
       </section>
+
+      <SadieSection banner={{ src: "/assets/images/sadie/sadiebanner.png", width: 1672, height: 941 }} />
     </>
   );
 }

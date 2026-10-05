@@ -20,7 +20,9 @@ export const members: Member[] = [
 export const siteAssets = {
   // Point these to approved originals under public/assets/images/ when supplied.
   heroPhoto: {
-    src: "/assets/images/hero/hero_01.webp",
+    src: "/assets/images/hero/hero_02.webp",
+    width: 1920,
+    height: 1080,
     desktopPosition: "center 51%",
     mobilePosition: "center 51%",
   },
@@ -78,6 +80,14 @@ export const newsItems: NewsItem[] = [
     image: "/assets/images/news/202601107_02.png",
     body: "販売価格\n\n4,000円（税込）\n\nサイズ\n\nXL ワンサイズ\n\n申込締切\n\n2026年10月20日\n\n本商品は、ご注文いただいた分のみ製作する受注生産品です。制作手配後のキャンセルはできませんので、内容をご確認のうえお申し込みください。\n\n本商品は今回限りの限定受注です。再販および締切後の追加生産は予定しておりません。ご希望の方は、ぜひこの機会にお申し込みください。",
   },
+  {
+    slug: "visage-interview-asia-no-tengoku",
+    date: "2026.10.05",
+    category: "NEWS",
+    title: "ルーマニアの音楽メディア「アジアの天国」にVisageインタビュー掲載",
+    body: "ルーマニアの音楽メディア「アジアの天国」にて、\nVisageのインタビューが掲載されました。\n\n“We Rise from Beautiful Decay.”\n\nVisageの音楽、楽曲制作、ライブ、そして僕たちが大切にしているものについて、深く取り上げていただいています。\n\n海を越えて僕たちの音楽と向き合い、こうして紹介していただけたことに感謝します。",
+    externalUrl: "https://www.ajianotengoku.com/2026/10/visage-arta-care-se-ridica-din.html?fbclid=PAZXh0bgNhZW0CMTEAcGRvZgRzcnRjBmFwcF9pZAwyNTYyODEwNDA1NTgAAafMWAkA129GQn6zC2HE53vu3schVUHbIrI6A7q5zuJu9VaxPir3EJZ2QzDaqA_aem_iqdh8a1TlDX6haMFhl3-ow",
+  },
 ];
 
 export type Release = {
@@ -109,4 +119,4 @@ export type LiveEvent = {
 };
 
 export type Video = { slug: string; videoId: string; youtubeUrl: string; thumbnail: string; title?: string; date?: string };
-export type NewsItem = { slug: string; date?: string; category: string; title: string; body: string; image?: string };
+export type NewsItem = { slug: string; date?: string; category: string; title: string; body: string; image?: string; externalUrl?: string };

@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Separate nested checkout; excluded from this site's publication.
+/visage-web/

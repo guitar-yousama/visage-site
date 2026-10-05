@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { siteNavigation, socialLinks } from "@/lib/site-data";
 import styles from "./header.module.css";
@@ -36,7 +37,7 @@ export function Header() {
 
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ""} ${menuOpen ? styles.open : ""}`}>
-      <Link className={styles.wordmark} href="/" aria-label="Visage ホーム">VISAGE</Link>
+      <Link className={styles.wordmark} href="/" aria-label="Visage ホーム"><Image className={styles.logo} src="/assets/images/hero/visage_wh.png" alt="Visage" width={790} height={322} sizes="(max-width: 900px) 90px, 110px" /></Link>
       <nav className={styles.desktopNav} aria-label="メインナビゲーション">
         {siteNavigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
       </nav>
