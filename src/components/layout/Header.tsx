@@ -71,7 +71,11 @@ export function Header() {
       </button>
       <nav id="mobile-navigation" className={styles.mobileNav} aria-label="モバイルナビゲーション" inert={!menuOpen}>
         <div className={styles.mobileLinks}>
-          {siteNavigation.map((item, index) => <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}><small>0{index + 1}</small>{item.label}</Link>)}
+          <Link href="/#latest" onClick={() => flushSync(() => setMenuOpen(false))}><small>01</small>LATEST</Link>
+          {(["/live", "/music", "/video", "/profile", "/member"] as const).map((href, index) => {
+            const item = siteNavigation.find(item => item.href === href)!;
+            return <Link key={href} href={href} onClick={() => setMenuOpen(false)}><small>0{index + 2}</small>{item.label}</Link>;
+          })}
           <Link href="/#follow" onClick={() => flushSync(() => setMenuOpen(false))}><small>07</small>FOLLOW</Link>
           <Link href="/#sadie-title" onClick={() => flushSync(() => setMenuOpen(false))}><small>08</small>MEET SADIE</Link>
         </div>
