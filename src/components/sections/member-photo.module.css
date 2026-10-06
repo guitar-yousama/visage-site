@@ -1,0 +1,16 @@
+.trigger { width: 100%; margin: 0; padding: 0; border: 0; color: inherit; font: inherit; cursor: zoom-in; }
+.trigger:focus-visible { outline: 1px solid rgb(160 183 209 / 70%); outline-offset: 5px; }
+.dialog { position: fixed; inset: 0; width: 100%; max-width: none; height: 100svh; max-height: none; margin: 0; padding: 72px 4vw 24px; border: 0; background: transparent; color: var(--color-bone); overflow: auto; }
+.dialog[open] { display: flex; align-items: center; justify-content: center; animation: veilIn 220ms ease-out both; }
+.dialog::backdrop { background: rgb(2 4 9 / 93%); backdrop-filter: blur(2px); }
+.figure { display: flex; flex-direction: column; align-items: center; width: min(100%, 1200px); margin: auto; pointer-events: auto; animation: portraitIn 250ms var(--ease-editorial) both; }
+.photo { position: static !important; display: block; width: auto !important; max-width: 100%; height: auto !important; max-height: min(80svh, calc(100svh - 190px)); object-fit: contain; filter: none !important; }
+.caption { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 22px; }
+.name { font: 400 clamp(24px, 3vw, 34px)/1.2 var(--font-display); letter-spacing: .075em; }
+.role { width: 100%; min-width: 100px; padding-top: 12px; border-top: 1px solid rgb(145 168 199 / 28%); color: var(--color-ash); text-align: center; font: 9px/1.5 var(--font-ui); letter-spacing: .2em; }
+.close { position: fixed; top: max(14px, env(safe-area-inset-top)); right: max(18px, env(safe-area-inset-right)); display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 0; border-bottom: 1px solid rgb(145 168 199 / 28%); background: transparent; color: var(--color-ash); font: 300 34px/1 var(--font-ui); cursor: pointer; transition: color 180ms ease; }
+.close:hover, .close:focus-visible { color: var(--color-bone); }
+@keyframes veilIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes portraitIn { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: scale(1); } }
+@media (max-width: 700px) { .dialog { padding: 70px 4vw max(20px, env(safe-area-inset-bottom)); } .dialog::backdrop { backdrop-filter: none; } .photo { max-height: calc(100svh - 190px); } }
+@media (prefers-reduced-motion: reduce) { .dialog[open], .figure { animation: none; } .close { transition: none; } }

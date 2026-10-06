@@ -83,7 +83,7 @@ export function HomeSections() {
         <div className={styles.endLink}><EditorialLink href="/member">MEET THE MEMBERS</EditorialLink></div>
       </section>
 
-      <section className={`${styles.section} ${styles.socialSection}`}>
+      <section className={`${styles.section} ${styles.socialSection}`} id="follow">
         <SectionHeading index="07" title="FOLLOW" note="FOUR WINDOWS INTO VISAGE" />
         <div className={styles.socialList}>{socialLinks.map((link, index) => <a href={link.href} key={link.platform} target="_blank" rel="noreferrer" title={`Visage Official ${link.platform}`} aria-label={`Visage Official ${link.platform}: ${link.handle}`} data-reveal style={{ "--reveal-delay": `${(index % 2) * 110}ms` } as CSSProperties}><small>{link.role}</small><strong>{link.platform}</strong><span>{link.handle}</span><i aria-hidden="true">↗</i></a>)}</div>
       </section>
