@@ -88,6 +88,16 @@ export const newsItems: NewsItem[] = [
     body: "ルーマニアの音楽メディア「アジアの天国」にて、\nVisageのインタビューが掲載されました。\n\n“We Rise from Beautiful Decay.”\n\nVisageの音楽、楽曲制作、ライブ、そして僕たちが大切にしているものについて、深く取り上げていただいています。\n\n海を越えて僕たちの音楽と向き合い、こうして紹介していただけたことに感謝します。",
     externalUrl: "https://www.ajianotengoku.com/2026/10/visage-arta-care-se-ridica-din.html?fbclid=PAZXh0bgNhZW0CMTEAcGRvZgRzcnRjBmFwcF9pZAwyNTYyODEwNDA1NTgAAafMWAkA129GQn6zC2HE53vu3schVUHbIrI6A7q5zuJu9VaxPir3EJZ2QzDaqA_aem_iqdh8a1TlDX6haMFhl3-ow",
   },
+  {
+    slug: "visage-interview-tokio-panic",
+    date: "2026.09.22",
+    category: "NEWS",
+    title: "メキシコの音楽メディア「TOKIO PANIC」にVisageインタビュー掲載",
+    body: "日本の音楽、J-Musicやオルタナティブカルチャーを発信するメキシコのメディア「TOKIO PANIC」に、Visageのインタビューを掲載していただきました。\n\nVisageの音楽や、その背景にある考えについて丁寧に取り上げていただいています。\n\n遠くメキシコからVisageに目を留め、こうした機会をいただけたことを、とても嬉しく思います。\n\nTOKIO PANICの皆様に、心より感謝いたします。\n\nThank you, @tokiopanic.\n\nWe Rise from Beautiful Decay.",
+    bodyLink: { text: "@tokiopanic", href: "https://www.instagram.com/tokiopanic/?hl=ja" },
+    externalUrl: "https://tokiopanic.com/noticias/visage-entrevista-kirine",
+    seoDescription: "日本の音楽、J-Musicやオルタナティブカルチャーを発信するメキシコのメディア「TOKIO PANIC」に、Visageのインタビューを掲載していただきました。",
+  },
 ];
 
 export type Release = {
@@ -119,4 +129,4 @@ export type LiveEvent = {
 };
 
 export type Video = { slug: string; videoId: string; youtubeUrl: string; thumbnail: string; title?: string; date?: string };
-export type NewsItem = { slug: string; date?: string; category: string; title: string; body: string; image?: string; externalUrl?: string };
+export type NewsItem = { slug: string; date?: string; category: string; title: string; body: string; image?: string; externalUrl?: string; bodyLink?: { text: string; href: string }; seoDescription?: string };

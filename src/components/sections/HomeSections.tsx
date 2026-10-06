@@ -31,7 +31,7 @@ export function Hero() {
 export function HomeSections() {
   const nextShow = liveEvents.filter((event) => !event.archived).sort((a, b) => a.date.localeCompare(b.date))[0];
   const latestItems = [
-    ...newsItems.map((item) => ({ date: item.date ?? "", displayDate: item.date, category: item.category, title: item.title, href: `/news/${item.slug}` })),
+    ...newsItems.map((item) => ({ date: item.date?.replaceAll(".", "-") ?? "", displayDate: item.date, category: item.category, title: item.title, href: `/news/${item.slug}` })),
     ...liveEvents.filter((event) => !event.archived).map((event) => ({ date: event.date, displayDate: event.dateLabel ?? event.date, category: "LIVE", title: event.eventName, href: "/live" })),
   ].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
 

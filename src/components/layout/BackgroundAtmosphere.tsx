@@ -29,8 +29,8 @@ export function BackgroundAtmosphere() {
     };
     const schedule = () => {
       if (!canAnimate()) return;
-      // One timeout only: a fresh 5–16 second interval after each completed strike.
-      timer = setTimeout(flash, randomBetween(5_000, 16_000));
+      // One timeout only: a fresh 4–11 second interval after each completed strike.
+      timer = setTimeout(flash, randomBetween(4_000, 11_000));
     };
     const flash = () => {
       timer = undefined;
