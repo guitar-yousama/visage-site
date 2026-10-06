@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { BackgroundAtmosphere } from "@/components/layout/BackgroundAtmosphere";
 import { ScrollMotion } from "@/components/layout/ScrollMotion";
+import { members, socialLinks } from "@/lib/site-data";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ja">
-      <body><BackgroundAtmosphere /><ScrollMotion /><a className="skip-link" href="#main-content">本文へスキップ</a><Header />{children}<Footer /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@graph": [{ "@type": "MusicGroup", "@id": "https://visage-site.vercel.app/#visage", name: "Visage", url: "https://visage-site.vercel.app/", description: "熊本・九州を拠点に活動する日本のヴィジュアル系ロックバンドVisage。", logo: "https://visage-site.vercel.app/assets/images/hero/visage_wh.png", image: "https://visage-site.vercel.app/assets/images/hero/hero_02.webp", genre: ["Visual Kei", "Rock"], sameAs: ["https://www.instagram.com/re_visage2025/", "https://x.com/Re_Visage", "https://www.tiktok.com/@visage7444", "https://www.youtube.com/@Visage-b9g"] }, { "@type": "WebSite", "@id": "https://visage-site.vercel.app/#website", name: "Visage Official Website", url: "https://visage-site.vercel.app/", description: "熊本・九州のヴィジュアル系ロックバンドVisage公式サイト。", publisher: { "@id": "https://visage-site.vercel.app/#visage" } }] }) }} /></body>
+      <body><BackgroundAtmosphere /><ScrollMotion /><a className="skip-link" href="#main-content">本文へスキップ</a><Header />{children}<Footer /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@graph": [{ "@type": "MusicGroup", "@id": "https://visage-site.vercel.app/#visage", name: "Visage", alternateName: "ヴィサージュ", url: "https://visage-site.vercel.app/", description: "熊本・九州を拠点に活動する日本のヴィジュアル系ロックバンドVisage。", logo: "https://visage-site.vercel.app/assets/images/hero/visage_wh.png", image: "https://visage-site.vercel.app/assets/images/hero/hero_02.webp", genre: ["ヴィジュアル系", "Visual Kei", "Rock"], foundingLocation: { "@type": "Place", name: "熊本県 / Kumamoto, Japan", address: { "@type": "PostalAddress", addressRegion: "熊本県", addressCountry: "JP" } }, member: members.map((member, index) => ({ "@type": "Person", name: ["霧音", "YOU", "Shinjirou", "Yuichi", "Kenichirou"][index], alternateName: member.name, jobTitle: member.role })), sameAs: socialLinks.map(link => link.href) }, { "@type": "WebSite", "@id": "https://visage-site.vercel.app/#website", name: "Visage Official Website", url: "https://visage-site.vercel.app/", description: "熊本・九州のヴィジュアル系ロックバンドVisage公式サイト。", publisher: { "@id": "https://visage-site.vercel.app/#visage" } }] }) }} /></body>
     </html>
   );
 }

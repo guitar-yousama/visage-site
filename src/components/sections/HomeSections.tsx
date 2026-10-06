@@ -18,7 +18,7 @@ export function Hero() {
 
       <div className={styles.heroMeta}><span>ARTIST / VISAGE</span><span>VISUAL KEI / HEAVY ROCK</span></div>
       <div className={styles.heroCore}>
-        <h1 id="hero-title"><span className={styles.heroLogoGlow} data-hero-logo-glow>{siteAssets.logo ? <Image className={styles.heroLogo} src={siteAssets.logo.src} alt="Visage" width={siteAssets.logo.width} height={siteAssets.logo.height} loading="eager" sizes="(max-width: 365px) 190px, (max-width: 423px) 52vw, (max-width: 700px) 220px, (max-width: 1547px) 42vw, 650px" /> : "VISAGE"}</span><span className={styles.heroLogoReflection} aria-hidden="true"><i /></span></h1>
+        <h1 id="hero-title"><span className={styles.heroLogoGlow} data-hero-logo-glow>{siteAssets.logo ? <Image className={styles.heroLogo} src={siteAssets.logo.src} alt="" width={siteAssets.logo.width} height={siteAssets.logo.height} loading="eager" sizes="(max-width: 365px) 190px, (max-width: 423px) 52vw, (max-width: 700px) 220px, (max-width: 1547px) 42vw, 650px" /> : "VISAGE"}</span><span className={styles.heroLogoReflection} aria-hidden="true"><i /></span><span className={styles.heroIdentity}>Visage（ヴィサージュ）｜熊本ヴィジュアル系バンド</span></h1>
         <div className={styles.heroFoot}><p>We Rise from Beautiful Decay</p><span>KUMAMOTO / JAPAN</span></div>
       </div>
       {siteAssets.heroPhoto && <div className={styles.heroPhotoFrame} data-ambient-light><div className={styles.heroPhotoMotion} data-hero-photo-motion><Image className={styles.heroPhoto} src={siteAssets.heroPhoto.src} alt="熊本・九州を拠点に活動するヴィジュアル系ロックバンド Visage" width={siteAssets.heroPhoto.width} height={siteAssets.heroPhoto.height} fetchPriority="high" loading="eager" sizes="100vw" /></div><span className={styles.heroScrollShade} aria-hidden="true" /><span className={styles.heroLightning} data-hero-lightning aria-hidden="true" /></div>}
@@ -73,6 +73,7 @@ export function HomeSections() {
       <section className={styles.profileSection}>
         <div className={styles.profileLabel}><span>05 / PROFILE</span><span>VISUAL KEI / KUMAMOTO</span></div>
         <h2 className={styles.profileHeading} data-reveal>{profileCopy.heading}</h2>
+        <p className={styles.profileEntityIntro}>Visage（ヴィサージュ）は、熊本を拠点に活動するヴィジュアル系バンド。美しく退廃的な世界観と、鋭く重いロックサウンドを届けます。</p>
         <NovelIntro paragraphs={profileCopy.paragraphs} className={styles.profileManifesto} emphasisClass={styles.profileEmphasis} closingClass={styles.profileClosing} />
         <div data-reveal style={{ "--reveal-delay": "120ms" } as CSSProperties}><EditorialLink href="/profile">ABOUT VISAGE</EditorialLink></div>
       </section>

@@ -10,7 +10,7 @@ export default function ProfilePage() {
   return <SectionPage index="05" title="PROFILE" description="MANIFESTO / WORLD VIEW">
     <div className={`${styles.copy} ${styles.manifesto}`}>
       <h2 data-reveal>{profileCopy.heading}</h2>
-      <p className={styles.entityIntro}>Visageは、熊本・九州を拠点に活動する日本のヴィジュアル系ロックバンドです。</p>
+      <p className={styles.entityIntro}>Visage（ヴィサージュ）は、熊本を拠点に活動するヴィジュアル系バンド。美しく退廃的な世界観と、鋭く重いロックサウンドを届けます。</p>
       <NovelIntro paragraphs={profileCopy.paragraphs} className={styles.manifestoBody} emphasisClass={styles.manifestoEmphasis} closingClass={styles.manifestoClosing} />
     </div>
   </SectionPage>;

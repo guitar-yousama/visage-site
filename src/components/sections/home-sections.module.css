@@ -15,6 +15,8 @@ html[data-motion-paused="true"] .heroPhotoFrame::before { animation-play-state: 
 .hero h1 { position: relative; z-index: 1; animation: heroLogoBreath 15s 2.7s ease-in-out infinite alternate; animation-play-state: paused; width: fit-content; max-width: 100%; margin: 0 auto; font: 400 clamp(82px, 18.2vw, 260px)/.76 var(--font-display); letter-spacing: .055em; }
 .heroLogo { display: block; width: min(42vw, 650px); max-width: 100%; height: auto; object-fit: contain; object-position: center; filter: drop-shadow(0 2px 12px rgb(0 0 0 / 38%)); animation: heroLogoIntro .95s .55s cubic-bezier(.22, 1, .36, 1) both; }
 .heroLogoGlow { display: block; filter: drop-shadow(0 0 3px rgb(155 185 216 / 22%)) drop-shadow(0 0 10px rgb(126 160 201 / 13%)); }
+.heroIdentity { display: block; margin-top: 18px; color: var(--color-ash); font: 400 clamp(10px, 1vw, 12px)/1.8 var(--font-body); letter-spacing: .035em; }
+.profileEntityIntro { max-width: 760px; margin: 32px auto 0; color: var(--color-ash); font-size: clamp(14px, 1.5vw, 18px); line-height: 2; letter-spacing: .035em; }
 .heroFoot { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 18px 0 0; }
 .heroFoot p { max-width: 600px; margin: 0; color: var(--color-bone); font: 400 clamp(17px, 2vw, 24px)/1.35 var(--font-display); letter-spacing: .035em; animation: heroTextIntro .9s 1.25s cubic-bezier(.22, 1, .36, 1) both; }
 .heroFoot span { color: var(--color-ash); font: 8px/1.8 var(--font-ui); letter-spacing: .18em; animation: heroTextIntro .8s 1.85s cubic-bezier(.22, 1, .36, 1) both; }
