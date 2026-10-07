@@ -11,3 +11,4 @@
   .novel [data-novel-closing] { transition: none; text-shadow: none !important; }
   .novel .hint { display: none !important; }
 }
+.novel > p { font-family: var(--font-display); font-weight: 400; }

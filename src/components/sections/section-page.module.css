@@ -2,7 +2,6 @@
 .copy { max-width: 850px; font-size: clamp(18px, 2.2vw, 29px); line-height: 2; letter-spacing: .04em; }
 .copy p { margin: 0 0 1.2em; }
 .manifesto { position: relative; max-width: 1000px; padding: clamp(30px, 6vw, 80px) clamp(22px, 6vw, 84px); isolation: isolate; }
-.manifesto::before { position: absolute; z-index: -1; inset: 0; background: linear-gradient(115deg, rgb(8 8 10 / 88%), rgb(8 8 10 / 75%)); content: ""; }
 .entityIntro { max-width: 740px; margin: 0 0 28px; color: var(--color-ash); font-size: 13px; line-height: 1.9; }
 .manifesto h2 { max-width: 900px; margin: 0 0 clamp(54px, 9vw, 120px); font: 400 clamp(42px, 8vw, 108px)/1.05 var(--font-display); letter-spacing: .005em; }
 .manifestoBody { max-width: 740px; font-size: clamp(16px, 1.8vw, 21px); line-height: 2.15; letter-spacing: .055em; white-space: pre-line; }
