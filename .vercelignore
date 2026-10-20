@@ -1,0 +1,5 @@
+# Never upload unrelated local checkouts, previews, or local credentials.
+visage-web/
+prize-house-preview/
+.env*
+.vercel/

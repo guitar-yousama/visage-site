@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { performanceId } from "@/lib/tickets/catalogue";
+import { ReservationLink } from "@/components/tickets/ReservationLink";
 import Link from "next/link";
 import type { LiveEvent, NewsItem, Release, Video } from "@/lib/site-data";
 import { EmptyState } from "@/components/ui/Editorial";
@@ -39,7 +41,7 @@ export function LiveFeature({ event }: { event: LiveEvent }) {
         {event.admission && <div><dt>ADMISSION</dt><dd>{event.admission}</dd></div>}
         {event.drinkCharge && <div><dt>DRINK</dt><dd>{event.drinkCharge}</dd></div>}
       </dl>
-      {event.ticketUrl && <div className={styles.ticketBlock} data-reveal style={{ "--reveal-delay": "420ms" } as React.CSSProperties}><p>{event.ticketNote ?? "チケット予約は下記リンクより。"}</p><a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">TICKET RESERVATION <span aria-hidden="true">↗</span><span className="sr-only">（新しいタブで開く）</span></a></div>}
+      <ReservationLink eventId={performanceId(event)} className={styles.ticketBlock} fallback={event.ticketUrl && <div className={styles.ticketBlock} data-reveal style={{ "--reveal-delay": "420ms" } as React.CSSProperties}><p>{event.ticketNote ?? "チケット予約は下記リンクより。"}</p><a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">TICKET RESERVATION <span aria-hidden="true">↗</span><span className="sr-only">（新しいタブで開く）</span></a></div>} />
     </div>
   </article>;
 }

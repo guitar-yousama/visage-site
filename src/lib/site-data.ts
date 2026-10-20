@@ -52,6 +52,7 @@ export const socialLinks = [
 export const releases: Release[] = [];
 export const liveEvents: LiveEvent[] = [
   {
+    eventId: "38001475-2b0f-884f-a241-f7122ec9a2c5",
     slug: "visage-vs-gheme-eclipse",
     date: "2026-11-07",
     eventName: "Visage vs GHEME Two-man Live [ECLIPSE]",
@@ -112,6 +113,8 @@ export type Release = {
 };
 
 export type LiveEvent = {
+  /** Stable shared ticket performance UUID; optional for legacy slugs. */
+  eventId?: string;
   slug: string;
   date: string;
   eventName: string;
@@ -129,4 +132,4 @@ export type LiveEvent = {
 };
 
 export type Video = { slug: string; videoId: string; youtubeUrl: string; thumbnail: string; title?: string; date?: string };
-export type NewsItem = { slug: string; date?: string; category: string; title: string; body: string; image?: string; externalUrl?: string; bodyLink?: { text: string; href: string }; seoDescription?: string };
+export type NewsItem = { eventId?: string; slug: string; date?: string; category: string; title: string; body: string; image?: string; externalUrl?: string; bodyLink?: { text: string; href: string }; seoDescription?: string };

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { ReservationLink } from "@/components/tickets/ReservationLink";
 import { notFound } from "next/navigation";
 import { newsItems } from "@/lib/site-data";
 import styles from "@/components/sections/content-lists.module.css";
@@ -32,6 +33,7 @@ export default async function NewsArticlePage({ params }: PageProps<"/news/[slug
       <div>
         <p className={styles.newsArticleBody} data-reveal style={{ "--reveal-delay": "130ms" } as React.CSSProperties}>{item.bodyLink && linkPosition >= 0 ? <>{item.body.slice(0, linkPosition)}<a href={item.bodyLink.href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline", textUnderlineOffset: ".2em" }}>{item.bodyLink.text}</a>{item.body.slice(linkPosition + item.bodyLink.text.length)}</> : item.body}</p>
         {item.externalUrl && <a className={styles.detailLink} href={item.externalUrl} target="_blank" rel="noopener noreferrer">READ INTERVIEW <span aria-hidden="true">↗</span><span className="sr-only">（新しいタブで開く）</span></a>}
+        <ReservationLink eventId={item.eventId?.toLowerCase()} className={styles.ticketBlock} />
       </div>
     </div>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "Article", headline: item.title, datePublished: item.date?.replaceAll(".", "-"), dateModified: item.date?.replaceAll(".", "-"), mainEntityOfPage: `https://visage-site.vercel.app/news/${item.slug}`, author: { "@id": "https://visage-site.vercel.app/#visage" }, publisher: { "@id": "https://visage-site.vercel.app/#visage" }, about: { "@id": "https://visage-site.vercel.app/#visage" } }) }} />

@@ -1,0 +1,13 @@
+# Copy values into .env.local / Vercel environment settings. Do not commit real secrets.
+# Prefer a provider's pooled PostgreSQL URL, enforcing TLS certificate verification.
+DATABASE_URL=
+TICKET_SITE_ORIGIN=http://localhost:3000
+# At least 32 random characters. Generate locally, e.g. openssl rand -hex 32
+TICKET_SECURITY_SECRET=
+TICKET_ADMIN_ID=
+# Generate using: node scripts/ticket-password.mjs
+TICKET_ADMIN_PASSWORD_HASH=
+GMAIL_USER=daiken.yuuichiroumatsumoto@gmail.com
+TICKET_ADMIN_EMAIL=daiken.yuuichiroumatsumoto@gmail.com
+# App password only; NEVER use the Google account login password.
+GMAIL_APP_PASSWORD=
