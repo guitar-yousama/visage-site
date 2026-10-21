@@ -1,3 +1,4 @@
+import { enrollPreviewMail, type PreviewMailProof } from "./preview-mail";
 import {
   createHash,
   createHmac,
@@ -36,6 +37,7 @@ export type MailPayload = {
   subject: string;
   text: string;
   replyTo?: string;
+  previewTest?: PreviewMailProof;
 };
 export type MailSender = (mail: MailPayload) => Promise<void>;
 const scrypt = (password: string, salt: string) =>
@@ -142,6 +144,7 @@ export class TicketService {
     public db: Database,
     private adminEmail: string,
     private catalogue: TicketPerformance[],
+    private mailEnvironment: Record<string, string | undefined> = process.env,
   ) {}
   async events() {
     const rows = (await this.db.query(
@@ -365,24 +368,32 @@ export class TicketService {
         ],
       );
       const details = `公演名：${e.title}\n開催：${jst(e.starts_at)}（日本時間）\n会場：${e.venue}\n料金：${e.price}\n受付番号：${receipt}\n申込日時：${jst(String(r.created_at))}（日本時間）\nお名前：${v.name}\nメールアドレス：${v.email}\n申し込み枚数：${v.quantity}\n備考：${v.notes || "なし"}`;
+      const createdAt = r.created_at instanceof Date
+        ? r.created_at.toISOString()
+        : new Date(String(r.created_at)).toISOString();
       await this.enqueue(q, id, "admin", {
         to: this.adminEmail,
         replyTo: v.email,
         subject: `[Visage] チケット申し込み ${receipt}`,
         text: details,
-      });
+      }, createdAt);
       await this.enqueue(q, id, "receipt", {
         to: v.email,
         subject: `[Visage] チケットお申し込み受付 ${receipt}`,
         text: `チケットのお申し込みを受け付けました。\n\n${details}\n\n${RECEIPT_NOTE}`,
-      });
+      }, createdAt);
       return { id, receipt, duplicate: false };
     });
   }
-  async enqueue(q: Query, id: string, kind: string, payload: MailPayload) {
+  async enqueue(q: Query, id: string, kind: string, payload: MailPayload, createdAt?: string) {
+    const jobId = randomUUID();
+    if (createdAt && (kind === "admin" || kind === "receipt")) {
+      const proof = enrollPreviewMail(payload, { reservationId: id, jobId, kind, createdAt }, this.mailEnvironment);
+      if (proof) payload = { ...payload, previewTest: proof };
+    }
     await q.query(
       "INSERT INTO ticket_mail_jobs(id,reservation_id,kind,payload) VALUES($1,$2,$3,$4)",
-      [randomUUID(), id, kind, JSON.stringify(payload)],
+      [jobId, id, kind, JSON.stringify(payload)],
     );
   }
   async list(

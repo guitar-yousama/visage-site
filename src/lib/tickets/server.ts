@@ -1,3 +1,5 @@
+import { validatePreviewMail } from "./preview-mail";
+import type { MailPayload } from "./service";
 import "server-only";
 import { isTicketPreview, validatePreviewOrigin } from "./preview-safety";
 import { cookies } from "next/headers";
@@ -192,13 +194,8 @@ export async function logout() {
   });
   return out;
 }
-export async function sendGmail(mail: {
-  to: string;
-  subject: string;
-  text: string;
-  replyTo?: string;
-}) {
-  if (isTicketPreview(process.env)) throw new Error("PREVIEW_SMTP_DISABLED");
+export async function sendGmail(mail: MailPayload) {
+  if (isTicketPreview(process.env)) validatePreviewMail(mail, process.env);
   const user = email(process.env.GMAIL_USER ?? "");
   const pass = process.env.GMAIL_APP_PASSWORD;
   if (!pass) throw new Error("SMTP_NOT_CONFIGURED");
@@ -217,7 +214,10 @@ export async function sendGmail(mail: {
   });
   try {
     const result = await transporter.sendMail({
-      ...mail,
+      to: mail.to,
+      subject: mail.subject,
+      text: mail.text,
+      replyTo: mail.replyTo,
       from: { name: "Visage", address: user },
     });
     if (!result.accepted.length) throw new Error("SMTP_REJECTED");
