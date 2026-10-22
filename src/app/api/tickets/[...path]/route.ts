@@ -127,7 +127,7 @@ async function dispatch(request: Request, path: string[]) {
   if (method === "GET" && action === "admin/events")
     return response({
       events: await s.events(),
-      performances: performanceCatalogue,
+      performances: performanceCatalogue.filter(event => event.reservationMode === "internal"),
     });
   if (method === "POST" && action === "admin/events") {
     const v = record(await jsonBody(request));

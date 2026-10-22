@@ -54,6 +54,7 @@ export const liveEvents: LiveEvent[] = [
   {
     eventId: "38001475-2b0f-884f-a241-f7122ec9a2c5",
     slug: "visage-vs-gheme-eclipse",
+    reservationMode: "external",
     date: "2026-11-07",
     eventName: "Visage vs GHEME Two-man Live [ECLIPSE]",
     description: "光と闇が、同じステージに立つ。\n\nVisage × GHEME\nTWO-MAN LIVE “ECLIPSE”\n\n相反する二つの世界。\n交わった先に何が生まれるのか。",
@@ -113,6 +114,8 @@ export type Release = {
 };
 
 export type LiveEvent = {
+  /** Only explicitly internal performances use the new ticket system. */
+  reservationMode?: "external" | "internal" | "none";
   /** Stable shared ticket performance UUID; optional for legacy slugs. */
   eventId?: string;
   slug: string;

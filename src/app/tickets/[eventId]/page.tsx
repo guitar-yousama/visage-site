@@ -3,6 +3,7 @@ import styles from "@/components/tickets/tickets.module.css";
 import { notFound } from "next/navigation";
 import { SectionPage } from "@/components/sections/SectionPage";
 import { TicketForm } from "@/components/tickets/TicketForm";
+import { performanceCatalogue } from "@/lib/tickets/catalogue";
 import { uuidPattern } from "@/lib/tickets/domain";
 export async function generateMetadata({
   params,
@@ -31,7 +32,7 @@ export default async function TicketEventPage({
   params: Promise<{ eventId: string }>;
 }) {
   const { eventId } = await params;
-  if (!uuidPattern.test(eventId)) notFound();
+  if (!uuidPattern.test(eventId) || !performanceCatalogue.some(event => event.id === eventId.toLowerCase() && event.reservationMode === "internal")) notFound();
   return (
     <div className={styles.page}>
       <SectionPage

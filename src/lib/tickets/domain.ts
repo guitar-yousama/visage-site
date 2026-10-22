@@ -10,6 +10,7 @@ export const statusLabels = {
 } as const;
 export type ReservationStatus = keyof typeof statusLabels;
 export type TicketPerformance = {
+  reservationMode: "external" | "internal" | "none";
   id: string;
   title: string;
   starts_at: string | null;

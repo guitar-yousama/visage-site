@@ -46,6 +46,7 @@ export function buildPerformanceCatalogue(
     if (!live.admission?.trim()) issues.push("LIVEの料金を設定してください。");
     return {
       id,
+      reservationMode: live.reservationMode ?? (live.ticketUrl ? "external" : "none"),
       title: live.eventName,
       starts_at: validDate ? new Date(dateTime).toISOString() : null,
       venue: live.venue,

@@ -67,7 +67,7 @@ test("ticket system: PostgreSQL-compatible local emulator (NOT remote persistenc
       price: input.price,
       live_slug: "test-live",
       news_slugs: [],
-      archived: false,
+      reservationMode: "internal", archived: false,
       issues: [],
     },
   ];
@@ -473,6 +473,7 @@ test("ticket system: PostgreSQL-compatible local emulator (NOT remote persistenc
 test("NEWS and LIVE catalogue share stable IDs without duplicating public content", () => {
   const live = {
     slug: "new-live",
+    reservationMode: "internal" as const,
     eventName: "NEW LIVE",
     date: "2027-01-02",
     startTime: "18:00",

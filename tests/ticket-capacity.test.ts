@@ -48,7 +48,7 @@ test("capacity: migration preserves data; occupancy, cancellation and edits stay
       price: "TEST",
       live_slug: "capacity-test",
       news_slugs: [],
-      archived: false,
+      reservationMode: "internal", archived: false,
       issues: [],
     };
     const service = new TicketService(db, "admin@example.invalid", [source]);

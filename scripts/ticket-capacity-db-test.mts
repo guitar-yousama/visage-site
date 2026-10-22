@@ -83,7 +83,7 @@ try {
     price: "検証用",
     live_slug: "capacity-test-only",
     news_slugs: [],
-    archived: false,
+    reservationMode: "internal", archived: false,
     issues: [],
   };
   const s = new TicketService(db, "admin@example.invalid", [source]);

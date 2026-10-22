@@ -81,7 +81,7 @@ test("DB workflow: six legacy failed jobs stay unsent; only new signed receipt/a
       transaction: fn => pg.transaction(tx => fn({ query: async (sql, args) => (await tx.query(sql, args)).rows as Record<string, unknown>[] })),
     };
     const eventId = randomUUID();
-    const performance: TicketPerformance = { id: eventId, title: "Fixture", starts_at: new Date(now + 86400000).toISOString(), venue: "Fixture", price: "Fixture", live_slug: "fixture", news_slugs: [], archived: false, issues: [] };
+    const performance: TicketPerformance = { id: eventId, title: "Fixture", starts_at: new Date(now + 86400000).toISOString(), venue: "Fixture", price: "Fixture", live_slug: "fixture", news_slugs: [], reservationMode: "internal", archived: false, issues: [] };
     const service = new TicketService(db, "admin@example.test", [performance], env);
     await service.saveEvent({ ...performance, eventId, opens_at: new Date(now - 86400000).toISOString(), closes_at: new Date(now + 3600000).toISOString(), enabled: true, max_quantity: 2, capacity: null }, "fixture-admin");
     for (let i = 0; i < 3; i++) {

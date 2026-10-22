@@ -165,7 +165,7 @@ export class TicketService {
     const source = this.catalogue.find(
       (event) => event.id === String(raw.eventId).toLowerCase(),
     );
-    if (!source || source.issues.length || !source.starts_at)
+    if (!source || source.reservationMode !== "internal" || source.issues.length || !source.starts_at)
       throw new TicketError(
         400,
         "LIVEに登録された公演情報を確認してください。",
@@ -260,7 +260,7 @@ export class TicketService {
   }
   private bindSource(stored: TicketEvent): TicketEvent {
     const source = this.catalogue.find((event) => event.id === stored.id);
-    if (!source || source.issues.length || !source.starts_at)
+    if (!source || source.reservationMode !== "internal" || source.issues.length || !source.starts_at)
       return {
         ...stored,
         enabled: false,
@@ -287,11 +287,13 @@ export class TicketService {
   async publicEvents() {
     // Keep an invalid-but-configured source visible as paused; never restore its old external CTA.
     return (await this.events()).filter((event) =>
-      this.catalogue.some((source) => source.id === event.id),
+      this.catalogue.some((source) => source.id === event.id && source.reservationMode === "internal"),
     );
   }
   async submit(value: unknown, requestKey: string, ipKey: string) {
     const v = reservationInput(value);
+    if (!this.catalogue.some(source => source.id === v.eventId && source.reservationMode === "internal"))
+      throw new TicketError(404, "この公演は新しい予約システムの対象ではありません。");
     const digest = hash(JSON.stringify(v));
     return this.db.transaction(async (q) => {
       // Serialize duplicate submissions by signed form nonce, without storing raw IP.
