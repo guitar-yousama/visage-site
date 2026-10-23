@@ -8,7 +8,7 @@ import {
   type TicketEvent,
 } from "@/lib/tickets/domain";
 import styles from "./tickets.module.css";
-export function TicketForm({ eventId }: { eventId?: string }) {
+export function TicketForm({ eventId, isolated = false }: { eventId?: string; isolated?: boolean }) {
   const [events, setEvents] = useState<TicketEvent[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState("");
@@ -23,7 +23,7 @@ export function TicketForm({ eventId }: { eventId?: string }) {
     let cancelled = false;
     async function load() {
       try {
-        const r = await fetch("/api/tickets/events", { cache: "no-store" });
+        const r = await fetch(isolated ? "/api/tickets/isolated/events" : "/api/tickets/events", { cache: "no-store" });
         const data = await r.json();
         if (!r.ok) throw Error(data.error);
         if (!cancelled) {
@@ -49,13 +49,13 @@ export function TicketForm({ eventId }: { eventId?: string }) {
       clearInterval(timer);
       clearInterval(tick);
     };
-  }, []);
+  }, [isolated]);
   const event = events.find((e) => e.id === eventId);
   const state = event ? eventState(event, clock) : null;
   useEffect(() => {
     if (!eventId) return;
     let cancelled = false;
-    fetch("/api/tickets/challenge", { cache: "no-store" })
+    fetch(isolated ? "/api/tickets/isolated/challenge" : "/api/tickets/challenge", { cache: "no-store" })
       .then(async (r) => {
         const v = await r.json();
         if (cancelled) return;
@@ -71,14 +71,14 @@ export function TicketForm({ eventId }: { eventId?: string }) {
     return () => {
       cancelled = true;
     };
-  }, [eventId]);
+  }, [eventId, isolated]);
   async function submit(form: FormData) {
     if (lock.current) return;
     lock.current = true;
     setBusy(true);
     setError("");
     try {
-      const r = await fetch("/api/tickets/reserve", {
+      const r = await fetch(isolated ? "/api/tickets/isolated/reserve" : "/api/tickets/reserve", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -1,3 +1,4 @@
+import { ISOLATED_EVENT_ID, requireIsolatedAdmin, validateIsolatedRecipient } from "./isolated-test";
 import { enrollPreviewMail, type PreviewMailProof } from "./preview-mail";
 import {
   createHash,
@@ -38,6 +39,7 @@ export type MailPayload = {
   text: string;
   replyTo?: string;
   previewTest?: PreviewMailProof;
+  isolatedEventId?: string;
 };
 export type MailSender = (mail: MailPayload) => Promise<void>;
 const scrypt = (password: string, salt: string) =>
@@ -287,11 +289,18 @@ export class TicketService {
   async publicEvents() {
     // Keep an invalid-but-configured source visible as paused; never restore its old external CTA.
     return (await this.events()).filter((event) =>
-      this.catalogue.some((source) => source.id === event.id && source.reservationMode === "internal"),
+      this.catalogue.some((source) => source.id === event.id && source.id !== ISOLATED_EVENT_ID && source.reservationMode === "internal"),
     );
   }
-  async submit(value: unknown, requestKey: string, ipKey: string) {
+  async submit(value: unknown, requestKey: string, ipKey: string, isolatedAdmin?: string) {
     const v = reservationInput(value);
+    const checkIsolated = (now = Date.now()) => {
+      if (v.eventId !== ISOLATED_EVENT_ID) return;
+      requireIsolatedAdmin(isolatedAdmin);
+      validateIsolatedRecipient(v.email, this.mailEnvironment, now);
+      validateIsolatedRecipient(this.adminEmail, this.mailEnvironment, now);
+    };
+    checkIsolated();
     if (!this.catalogue.some(source => source.id === v.eventId && source.reservationMode === "internal"))
       throw new TicketError(404, "この公演は新しい予約システムの対象ではありません。");
     const digest = hash(JSON.stringify(v));
@@ -349,6 +358,7 @@ export class TicketService {
       await this.checkCapacity(q, e.id, e.capacity, v.quantity);
       // Read the wall clock after acquiring all locks, not the transaction start time.
       const [clock] = await q.query("SELECT clock_timestamp() AS server_now");
+      checkIsolated(new Date(String(clock.server_now)).getTime());
       const state = eventState(e, new Date(String(clock.server_now)).getTime());
       if (state.code !== "open") throw new TicketError(409, state.label);
       const id = randomUUID();
@@ -556,15 +566,17 @@ export class TicketService {
     );
     const token = randomUUID();
     const jobs = await this.db.query(
-      `UPDATE ticket_mail_jobs SET state='sending',claimed_at=now(),claim_token=$2,attempts=attempts+1 WHERE reservation_id=$1 AND state IN ${admin ? "('pending','failed')" : "('pending')"} AND error_code IS DISTINCT FROM 'CONTENT_CHANGED' AND error_code IS DISTINCT FROM 'DELETED' AND EXISTS(SELECT 1 FROM ticket_reservations r WHERE r.id=$1 AND r.deleted_at IS NULL) RETURNING id,payload`,
+      `UPDATE ticket_mail_jobs SET state='sending',claimed_at=now(),claim_token=$2,attempts=attempts+1 WHERE reservation_id=$1 AND state IN ${admin ? "('pending','failed')" : "('pending')"} AND error_code IS DISTINCT FROM 'CONTENT_CHANGED' AND error_code IS DISTINCT FROM 'DELETED' AND EXISTS(SELECT 1 FROM ticket_reservations r WHERE r.id=$1 AND r.deleted_at IS NULL) RETURNING id,payload,(SELECT event_id FROM ticket_reservations WHERE id=$1) AS event_id`,
       [id, token],
     );
     for (const job of jobs) {
       try {
-        await send(job.payload as MailPayload);
+        const payload = job.payload as MailPayload;
+        if (job.event_id === ISOLATED_EVENT_ID) validateIsolatedRecipient(payload.to, this.mailEnvironment);
+        await send({ ...payload, isolatedEventId: job.event_id === ISOLATED_EVENT_ID ? ISOLATED_EVENT_ID : undefined });
         await this.db.query(
-          "UPDATE ticket_mail_jobs SET state='sent',sent_at=now(),error_code=NULL WHERE id=$1 AND claim_token=$2",
-          [job.id, token],
+          "UPDATE ticket_mail_jobs SET state='sent',sent_at=now(),error_code=$3 WHERE id=$1 AND claim_token=$2",
+          [job.id, token, job.event_id === ISOLATED_EVENT_ID && (this.mailEnvironment.VERCEL_ENV === "preview" || this.mailEnvironment.VERCEL_TARGET_ENV === "preview") ? "PREVIEW_SIMULATED" : null],
         );
       } catch {
         await this.db.query(

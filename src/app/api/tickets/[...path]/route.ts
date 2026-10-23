@@ -1,3 +1,4 @@
+import { ISOLATED_EVENT_ID, requireIsolatedAdmin, isolatedPerformance } from "@/lib/tickets/isolated-test";
 import { randomUUID } from "node:crypto";
 import {
   checkOrigin,
@@ -60,7 +61,12 @@ async function dispatch(request: Request, path: string[]) {
   const method = request.method;
   const action = path.join("/");
   const url = new URL(request.url);
+  const isolated = action.startsWith("isolated/");
+  let isolatedAdmin: string | null = null;
+  if (isolated) { isolatedAdmin = await currentAdmin(); requireIsolatedAdmin(isolatedAdmin); }
   if (method !== "GET") checkOrigin(request);
+  if (method === "GET" && action === "isolated/events")
+    return response({ events: (await service().events()).filter(e => e.id === ISOLATED_EVENT_ID), serverNow: new Date().toISOString(), simulatedMail: process.env.VERCEL_ENV === "preview" });
   if (method === "GET" && action === "events") {
     if (!configured())
       return response({
@@ -74,7 +80,7 @@ async function dispatch(request: Request, path: string[]) {
       serverNow: new Date().toISOString(),
     });
   }
-  if (method === "GET" && action === "challenge") {
+  if (method === "GET" && (action === "challenge" || action === "isolated/challenge")) {
     // A signed, IP-bound, single-use form nonce; public GET never returns reservation data.
     await rateLimit(database(), "challenge-global", 1000, 900);
     await rateLimit(
@@ -85,8 +91,10 @@ async function dispatch(request: Request, path: string[]) {
     );
     return response({ token: challenge(secret(), ipAddress(request)) });
   }
-  if (method === "POST" && action === "reserve") {
+  if (method === "POST" && (action === "reserve" || action === "isolated/reserve")) {
     const v = record(await jsonBody(request));
+    if (isolated && v.eventId !== ISOLATED_EVENT_ID) throw new TicketError(404, "ページが見つかりません。");
+    if (!isolated && v.eventId === ISOLATED_EVENT_ID) throw new TicketError(404, "ページが見つかりません。");
     if (v.website !== "")
       throw new TicketError(400, "送信内容を確認してください。");
     await rateLimit(
@@ -101,7 +109,7 @@ async function dispatch(request: Request, path: string[]) {
       ipAddress(request),
     );
     const s = service();
-    const result = await s.submit(v, key, keyed(ipAddress(request), secret()));
+    const result = await s.submit(v, key, keyed(ipAddress(request), secret()), isolatedAdmin ?? undefined);
     if (!result.duplicate) {
       try {
         await s.deliver(result.id, sendGmail);
@@ -127,7 +135,7 @@ async function dispatch(request: Request, path: string[]) {
   if (method === "GET" && action === "admin/events")
     return response({
       events: await s.events(),
-      performances: performanceCatalogue.filter(event => event.reservationMode === "internal"),
+      performances: [...performanceCatalogue.filter(event => event.reservationMode === "internal"), isolatedPerformance(process.env)],
     });
   if (method === "POST" && action === "admin/events") {
     const v = record(await jsonBody(request));

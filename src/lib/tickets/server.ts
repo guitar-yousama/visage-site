@@ -1,3 +1,4 @@
+import { ISOLATED_EVENT_ID, isolatedPerformance, isolatedMailMode } from "./isolated-test";
 import { validatePreviewMail } from "./preview-mail";
 import type { MailPayload } from "./service";
 import "server-only";
@@ -34,7 +35,7 @@ export function service() {
   if (!process.env.TICKET_ADMIN_EMAIL)
     throw new TicketError(503, "現在受付を準備しています。");
   const admin = email(process.env.TICKET_ADMIN_EMAIL);
-  return new TicketService(database(), admin, performanceCatalogue);
+  return new TicketService(database(), admin, [...performanceCatalogue, isolatedPerformance(process.env)]);
 }
 export function ipAddress(request: Request) {
   // Vercel supplies x-vercel-forwarded-for; do not trust a caller-supplied x-forwarded-for in local mode.
@@ -195,7 +196,9 @@ export async function logout() {
   return out;
 }
 export async function sendGmail(mail: MailPayload) {
-  if (isTicketPreview(process.env)) validatePreviewMail(mail, process.env);
+  if (mail.isolatedEventId === ISOLATED_EVENT_ID) {
+    if (isolatedMailMode(mail.to, process.env) === "simulate") return; // Never create an SMTP transport in Preview.
+  } else if (isTicketPreview(process.env)) validatePreviewMail(mail, process.env);
   const user = email(process.env.GMAIL_USER ?? "");
   const pass = process.env.GMAIL_APP_PASSWORD;
   if (!pass) throw new Error("SMTP_NOT_CONFIGURED");
