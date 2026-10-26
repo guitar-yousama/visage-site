@@ -5,6 +5,7 @@ export const siteNavigation = [
   { label: "NEWS", href: "/news" },
   { label: "PROFILE", href: "/profile" },
   { label: "MEMBER", href: "/member" },
+  { label: "GOODS", href: "/goods/" },
 ] as const;
 
 export type Member = { name: string; role: string; portrait?: string; portraitWidth?: number; portraitHeight?: number };

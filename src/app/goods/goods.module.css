@@ -1,0 +1,44 @@
+.page { --goods-serif: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif; max-width: 1120px; margin: 0 auto; padding: 120px 28px 100px; font-family: var(--goods-serif); color: #e8e9e9; }
+.intro { position: relative; display: grid; grid-template-columns: 1.25fr 1fr; align-items: center; min-height: 310px; border-bottom: 1px solid #7e899655; }
+.moon { display: block; width: 100%; height: auto; mask-image: linear-gradient(to bottom, black 85%, transparent); }
+.heading { text-align: center; padding: 20px 0; }
+.eyebrow { font: 11px var(--font-ui); letter-spacing: .4em; color: #9ca9b6; }
+.heading h1 { margin: 16px 0; font: 400 clamp(32px, 4.6vw, 57px)/1.2 var(--font-display); letter-spacing: .14em; }
+.japanese { font-size: 14px; letter-spacing: .18em; }
+.ornament { display: block; margin: 24px auto 0; color: #b9c8d7; font-size: 28px; }
+.collection { position: relative; padding: 0 36px; border-inline: 1px solid #8592a022; background: radial-gradient(ellipse at 50% 25%, #7894ad0c, transparent 65%); }
+.collection::before { content: ""; position: absolute; top: 0; left: -28px; width: 65px; height: 210px; background: url('/assets/images/goods/rose-frame.png') center/contain no-repeat; opacity: .55; pointer-events: none; }
+.product { position: relative; padding: 34px 0 38px; border-bottom: 1px solid #8493a344; }
+.productHeader { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px; margin-bottom: 24px; }
+.number { font: italic 400 76px/1 var(--font-display); color: #8e98a980; }
+.product h2 { margin: 0; font: 400 clamp(23px, 3vw, 37px)/1.2 var(--font-display); letter-spacing: .055em; }
+.productHeader div p { margin: 9px 0 0; font-size: 13px; letter-spacing: .16em; }
+.price { margin: 0; white-space: nowrap; font: 400 clamp(30px, 4.5vw, 49px)/1.2 var(--font-display); }
+.price small { font: 18px var(--goods-serif); }
+.photo { display: block; max-width: 100%; width: auto; height: auto; margin: 0 auto; }
+.spec { display: flex; justify-content: center; gap: 24px; font-size: 15px; line-height: 1.8; margin: 20px 0 0; color: #d3d7dd; }
+.spec span { letter-spacing: .06em; }
+.split { display: grid; grid-template-columns: minmax(0, 580px) minmax(160px, 1fr); gap: 24px; align-items: center; }
+.details .spec { justify-content: space-between; margin: 12px 0; gap: 12px; }
+.setPrice { border: 1px solid #a6afbb80; text-align: center; padding: 16px; margin: 22px 0 0; font-size: 15px; }
+.setPrice strong { display: block; font: 400 38px/1.2 var(--font-display); margin-top: 8px; }
+.keySpecs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 48px; }
+.limited { margin: 0; padding: 42px 0; text-align: center; font-size: clamp(18px, 2.3vw, 23px); letter-spacing: .12em; line-height: 1.9; }
+@media (max-width: 700px) {
+ .page { padding: 95px 18px 55px; }
+ .intro { grid-template-columns: 1fr; }
+ .moon { width: min(100%, 500px); margin: auto; }
+ .heading { padding: 0 0 25px; }
+ .heading h1 { font-size: 39px; }
+ .collection { padding: 0 12px; }
+ .product { padding: 28px 0; }
+ .productHeader { grid-template-columns: auto 1fr; gap: 14px; margin-bottom: 20px; }
+ .number { font-size: 59px; }
+ .product h2 { font-size: clamp(21px, 5.8vw, 31px); overflow-wrap: anywhere; }
+ .price { grid-column: 2; font-size: 36px; }
+ .split { grid-template-columns: 1fr; gap: 8px; }
+ .details { max-width: 300px; width: 100%; margin: 0 auto; }
+ .spec { gap: 16px; font-size: 15px; }
+ .limited { letter-spacing: .04em; }
+ .collection::before { left: -18px; width: 40px; opacity: .35; }
+}

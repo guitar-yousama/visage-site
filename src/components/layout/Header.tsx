@@ -78,6 +78,7 @@ export function Header() {
           })}
           <Link href="/#follow" onClick={() => flushSync(() => setMenuOpen(false))}><small>07</small>FOLLOW</Link>
           <Link href="/#sadie-title" onClick={() => flushSync(() => setMenuOpen(false))}><small>08</small>MEET SADIE</Link>
+          <Link href="/goods/" onClick={() => setMenuOpen(false)}><small>09</small>GOODS</Link>
         </div>
         <div className={styles.mobileSocials}>
           {socialLinks.map((item) => <a key={item.platform} href={item.href} target="_blank" rel="noreferrer">{item.platform}</a>)}
