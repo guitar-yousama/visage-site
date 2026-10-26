@@ -76,9 +76,9 @@ export function Header() {
             const item = siteNavigation.find(item => item.href === href)!;
             return <Link key={href} href={href} onClick={() => setMenuOpen(false)}><small>0{index + 2}</small>{item.label}</Link>;
           })}
-          <Link href="/#follow" onClick={() => flushSync(() => setMenuOpen(false))}><small>07</small>FOLLOW</Link>
-          <Link href="/#sadie-title" onClick={() => flushSync(() => setMenuOpen(false))}><small>08</small>MEET SADIE</Link>
-          <Link href="/goods/" onClick={() => setMenuOpen(false)}><small>09</small>GOODS</Link>
+          <Link href="/goods/" onClick={() => setMenuOpen(false)}><small>07</small>GOODS</Link>
+          <Link href="/#follow" onClick={() => flushSync(() => setMenuOpen(false))}><small>08</small>FOLLOW</Link>
+          <Link href="/#sadie-title" onClick={() => flushSync(() => setMenuOpen(false))}><small>09</small>MEET SADIE</Link>
         </div>
         <div className={styles.mobileSocials}>
           {socialLinks.map((item) => <a key={item.platform} href={item.href} target="_blank" rel="noreferrer">{item.platform}</a>)}

@@ -1,3 +1,4 @@
+import { GoodsSection } from "./GoodsSection";
 import { GalleryCarousel } from "./GalleryCarousel";
 import { galleryPhotos } from "@/lib/gallery-data";
 import { NovelIntro } from "./NovelIntro";
@@ -23,7 +24,7 @@ export function Hero() {
       </div>
       {siteAssets.heroPhoto && <div className={styles.heroPhotoFrame} data-ambient-light><div className={styles.heroPhotoMotion} data-hero-photo-motion><Image className={styles.heroPhoto} src={siteAssets.heroPhoto.src} alt="熊本・九州を拠点に活動するヴィジュアル系ロックバンド Visage" width={siteAssets.heroPhoto.width} height={siteAssets.heroPhoto.height} fetchPriority="high" loading="eager" sizes="100vw" /></div><span className={styles.heroScrollShade} aria-hidden="true" /><span className={styles.heroLightning} data-hero-lightning aria-hidden="true" /></div>}
       <a className={styles.scrollCue} href="#latest"><span>SCROLL</span><i aria-hidden="true" /></a>
-      <span className={styles.heroIndex} aria-hidden="true">01 — 08</span>
+      <span className={styles.heroIndex} aria-hidden="true">01 — 09</span>
     </HeroMotion>
   );
 }
@@ -84,8 +85,10 @@ export function HomeSections() {
         <div className={styles.endLink}><EditorialLink href="/member">MEET THE MEMBERS</EditorialLink></div>
       </section>
 
+      <GoodsSection />
+
       <section className={`${styles.section} ${styles.socialSection}`} id="follow">
-        <SectionHeading index="07" title="FOLLOW" note="FOUR WINDOWS INTO VISAGE" />
+        <SectionHeading index="08" title="FOLLOW" note="FOUR WINDOWS INTO VISAGE" />
         <div className={styles.socialList}>{socialLinks.map((link, index) => <a href={link.href} key={link.platform} target="_blank" rel="noreferrer" title={`Visage Official ${link.platform}`} aria-label={`Visage Official ${link.platform}: ${link.handle}`} data-reveal style={{ "--reveal-delay": `${(index % 2) * 110}ms` } as CSSProperties}><small>{link.role}</small><strong>{link.platform}</strong><span>{link.handle}</span><i aria-hidden="true">↗</i></a>)}</div>
       </section>
 

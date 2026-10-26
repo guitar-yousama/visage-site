@@ -27,7 +27,7 @@ export function SadieSection({ banner }: { banner?: SadieBanner }) {
   return (
     <section ref={sectionRef} className={homeStyles.section} aria-labelledby="sadie-title">
       <div className={styles.gateway}>
-        <SectionHeading index="08" title="MEET SADIE" note="OFFICIAL CHARACTER" id="sadie-title" />
+        <SectionHeading index="09" title="MEET SADIE" note="OFFICIAL CHARACTER" id="sadie-title" />
         <p className={styles.description} data-reveal style={{ "--reveal-delay": "120ms" } as CSSProperties}>Visageの世界を案内する、魔界最強（候補）の愛くるしい案内人。</p>
         {banner && <a className={styles.banner} href={sadieUrl} target="_blank" rel="noopener noreferrer" data-reveal style={{ "--reveal-delay": "160ms" } as CSSProperties}>
           <Image className={styles.bannerImage} data-sadie-image src={banner.src} alt="Visage公式キャラクターSadie（サディ）" width={banner.width} height={banner.height} sizes="(max-width: 400px) calc(100vw - 40px), (max-width: 1066px) 90vw, 960px" />

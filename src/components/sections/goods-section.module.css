@@ -1,0 +1,34 @@
+.gateway { position: relative; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, 1fr); align-items: center; gap: clamp(28px, 5vw, 80px); padding-block: 35px; border-block: 1px solid var(--color-line); }
+.gateway::after { content: ""; position: absolute; bottom: -1px; left: 0; width: 18%; height: 1px; opacity: 0; background: linear-gradient(90deg, transparent, #d8e0eb, transparent); pointer-events: none; }
+.visual { min-width: 0; padding: 28px 0; }
+.towel, .keychains { display: block; width: 100%; height: auto; transition: transform .6s var(--ease-editorial); }
+.towel { max-width: 700px; }
+.keychains { width: 74%; max-width: 450px; margin: 24px 0 0 auto; }
+.copy { min-width: 0; font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif; }
+.lead { margin: 0; color: var(--color-bone); font-size: clamp(23px, 2.5vw, 34px); line-height: 1.9; letter-spacing: .04em; }
+.description { margin: 22px 0 34px; color: #bfc5cf; font-size: 15px; line-height: 2; }
+.cta { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 0; border-bottom: 1px solid #a6b0bf80; font: 11px/1.6 var(--font-ui); letter-spacing: .12em; }
+.cta small { display: block; margin-top: 9px; font: 13px/1.7 "Yu Mincho", "Hiragino Mincho ProN", serif; letter-spacing: .06em; color: #c1c8d2; }
+.cta i { font-size: 22px; font-style: normal; transition: transform .35s ease; }
+.gateway:focus-visible { outline: 1px solid #d8e0eb; outline-offset: 8px; }
+.gateway:focus-visible .towel, .gateway:focus-visible .keychains { transform: translateY(-4px); }
+.gateway:focus-visible::after { animation: silverPass .8s ease-out 1; }
+.gateway:focus-visible .cta i { transform: translate(3px, -3px); }
+@media (hover: hover) and (pointer: fine) {
+ .gateway:hover .towel, .gateway:hover .keychains { transform: translateY(-4px); }
+ .gateway:hover::after { animation: silverPass .8s ease-out 1; }
+ .gateway:hover .cta i { transform: translate(3px, -3px); }
+}
+@keyframes silverPass { 0% { left: 0; opacity: 0; } 20% { opacity: .8; } 80% { opacity: .8; } 100% { left: 82%; opacity: 0; } }
+@media (max-width: 700px) {
+ .gateway { grid-template-columns: 1fr; gap: 18px; padding-block: 20px 30px; }
+ .visual { padding: 12px 0; }
+ .copy { padding-inline: 4px; }
+ .lead { font-size: 25px; }
+ .description { margin: 14px 0 18px; font-size: 14px; }
+ .cta { max-width: 360px; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .towel, .keychains, .cta i { transition: none; transform: none !important; }
+ .gateway::after { animation: none !important; }
+}
