@@ -24,7 +24,7 @@ export function LiveList({ events }: { events: LiveEvent[] }) {
   const archive = events.filter((event) => event.archived).sort((a, b) => b.date.localeCompare(a.date));
   return <>
     {upcoming.length > 0 && <section className={styles.eventGroup}><h2>UPCOMING</h2>{upcoming.map((event) => <LiveFeature event={event} key={event.slug} />)}</section>}
-    {archive.length > 0 && <section className={`${styles.eventGroup} ${styles.archiveGroup}`}><h2>ARCHIVE</h2>{archive.map((event) => <article className={styles.event} key={event.slug}><time>{event.date}</time><div><strong>{event.eventName}</strong><p>{event.venue}</p></div></article>)}</section>}
+    {archive.length > 0 && <section className={`${styles.eventGroup} ${styles.archiveGroup}`}><h2>ARCHIVE</h2>{archive.map((event) => <article className={styles.event} key={event.slug}><time>{event.date}</time><div><strong>{event.eventName}</strong><p>{event.venue}</p>{event.archiveNote && <p>{event.archiveNote}</p>}</div></article>)}</section>}
   </>;
 }
 

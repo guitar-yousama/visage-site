@@ -68,6 +68,8 @@ export const liveEvents: LiveEvent[] = [
     poster: "/assets/images/live/20261107_01.png",
     ticketUrl: "https://eclipse-visage-gheme.spicy-badge-3006.chatgpt.site/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAcGRvZgJzcnRjBmFwcF9pZA85MzY2MTk3NDMzOTI0NTkAAafhZ-wDAesEZ_sIDRMohwLfve0pChAFscaEQN0a4m3rIq8G5I_SlSHW43Hl_g_aem_COcXuXluyS19wvjvrnawXg",
     ticketNote: "チケット予約は下記リンクより。",
+    archived: true,
+    archiveNote: "本公演は終了いたしました。沢山のご来場、誠にありがとうございました。",
   },
 ];
 export const videos: Video[] = [
@@ -76,6 +78,13 @@ export const videos: Video[] = [
   { slug: "d5gfsbykegw", videoId: "D5gfSBYKeGw", youtubeUrl: "https://www.youtube.com/watch?v=D5gfSBYKeGw", thumbnail: "https://i.ytimg.com/vi/D5gfSBYKeGw/hqdefault.jpg" },
 ];
 export const newsItems: NewsItem[] = [
+  {
+    slug: "eclipse-live-finished-thanks",
+    date: "2026.11.07",
+    category: "NEWS",
+    title: "【御礼】Visage × GHEME TWO-MAN LIVE “ECLIPSE” 終了",
+    body: "2026年11月7日（土）、KUMAMOTO B.9 V2にて開催いたしました Visage × GHEME TWO-MAN LIVE “ECLIPSE” は、無事終了いたしました。\n\nご来場いただいた皆様、誠にありがとうございました。\n\n光と闇が交わる一夜を、同じステージで皆様と共有できたことを心より感謝いたします。\n\nWe Rise from Beautiful Decay.",
+  },
   {
     slug: "eclipse-limited-collaboration-t-shirt",
     category: "NEWS",
@@ -133,6 +142,7 @@ export type LiveEvent = {
   ticketUrl?: string;
   ticketNote?: string;
   archived?: boolean;
+  archiveNote?: string;
 };
 
 export type Video = { slug: string; videoId: string; youtubeUrl: string; thumbnail: string; title?: string; date?: string };
