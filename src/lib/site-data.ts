@@ -82,7 +82,7 @@ export const newsItems: NewsItem[] = [
     slug: "eclipse-live-finished-thanks",
     date: "2026.11.07",
     category: "NEWS",
-    title: "【御礼】Visage × GHEME TWO-MAN LIVE “ECLIPSE” 終了",
+    title: "Visage × GHEME TWO-MAN LIVE “ECLIPSE” 終了",
     body: "2026年11月7日（土）、KUMAMOTO B.9 V2にて開催いたしました Visage × GHEME TWO-MAN LIVE “ECLIPSE” は、無事終了いたしました。\n\nご来場いただいた皆様、誠にありがとうございました。\n\n光と闇が交わる一夜を、同じステージで皆様と共有できたことを心より感謝いたします。\n\nWe Rise from Beautiful Decay.",
   },
   {
